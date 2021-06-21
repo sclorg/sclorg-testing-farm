@@ -21,6 +21,6 @@ prepare:
               https://kojipkgs.fedoraproject.org//packages/source-to-image/1.1.7/3.fc29/x86_64/source-to-image-1.1.7-3.fc29.x86_64.rpm #source-to-image
         - git clone https://github.org/sclorg/ci-scripts
         - git submodule update --init
-        - ci-scripts/jenkins_ci/prepare-centos-docker.sh
+        - ./ci-scripts/jenkins_ci/prepare-centos-docker.sh
 execute:
     how: shell
