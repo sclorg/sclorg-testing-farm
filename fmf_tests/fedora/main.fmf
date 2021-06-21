@@ -11,16 +11,16 @@ discover:
 prepare:
     how: shell
     script: |
-        - yum -y install docker perl git centos-release-scl-rh rsync groff-base centos-release-openshift-origin epel-release \
+        yum -y install docker perl git centos-release-scl-rh rsync groff-base centos-release-openshift-origin epel-release \
                         http://cbs.centos.org/kojifiles/packages/golang-github-cpuguy83-go-md2man/1.0.4/4.0.el7/x86_64/golang-github-cpuguy83-go-md2man-1.0.4-4.0.el7.x86_64.rpm
-        - yum -y install  http://cbs.centos.org/kojifiles/packages/docker/1.13.1/87.git07f3374.el7/x86_64/docker-1.13.1-87.git07f3374.el7.x86_64.rpm \
+        yum -y install  http://cbs.centos.org/kojifiles/packages/docker/1.13.1/87.git07f3374.el7/x86_64/docker-1.13.1-87.git07f3374.el7.x86_64.rpm \
                         http://cbs.centos.org/kojifiles/packages/docker/1.13.1/87.git07f3374.el7/x86_64/docker-client-1.13.1-87.git07f3374.el7.x86_64.rpm \
                         http://cbs.centos.org/kojifiles/packages/docker/1.13.1/87.git07f3374.el7/x86_64/docker-common-1.13.1-87.git07f3374.el7.x86_64.rpm \
                         http://cbs.centos.org/kojifiles/packages/docker/1.13.1/87.git07f3374.el7/x86_64/docker-rhel-push-plugin-1.13.1-87.git07f3374.el7.x86_64.rpm
-        - yum -y install rh-python36-python-virtualenv origin-clients distgen \
+        yum -y install rh-python36-python-virtualenv origin-clients distgen \
               https://kojipkgs.fedoraproject.org//packages/source-to-image/1.1.7/3.fc29/x86_64/source-to-image-1.1.7-3.fc29.x86_64.rpm #source-to-image
-        - git clone https://github.org/sclorg/ci-scripts
-        - git submodule update --init
-        - ./ci-scripts/jenkins_ci/prepare-centos-docker.sh
+        git clone https://github.org/sclorg/ci-scripts
+        git submodule update --init
+        ./ci-scripts/jenkins_ci/prepare-centos-docker.sh
 execute:
     how: shell
