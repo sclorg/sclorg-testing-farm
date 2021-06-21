@@ -5,8 +5,10 @@ description: |
 discover:
     how: shell
     tests:
-    - name: Run tests:
+    - name: Run tests on fedora OS
+      framework: shell
       test: make test TARGET=fedora
+      duration: 3h
 
 prepare:
     how: shell
