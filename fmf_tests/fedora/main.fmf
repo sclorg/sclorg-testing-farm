@@ -23,4 +23,4 @@ prepare:
         - git submodule update --init
         - ci-scripts/jenkins_ci/prepare-centos-docker.sh
 execute:
-    how: tmt
+    how: shell
