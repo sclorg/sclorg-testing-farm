@@ -4,7 +4,7 @@ description: |
 
 discover:
     how: shell
-    tests
+    tests:
     - name: Run tests:
       test: make test TARGET=fedora
 
