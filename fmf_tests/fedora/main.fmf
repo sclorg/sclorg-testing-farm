@@ -1,6 +1,6 @@
 summary: TMT/TFT plan for running SCL tests on Fedora
 description: |
-    Runs tests on Fedora.
+    Runs tests on Fedora
 
 discover:
     how: shell
@@ -20,4 +20,4 @@ prepare:
         git submodule update --init
         ./ci-scripts/jenkins_ci/prepare-centos-docker.sh
 execute:
-    how: shell
+    how: tmt
