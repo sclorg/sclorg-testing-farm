@@ -19,5 +19,6 @@ prepare:
         git clone https://github.org/sclorg/ci-scripts
         git submodule update --init
         ./ci-scripts/jenkins_ci/prepare-centos-docker.sh
+
 execute:
     how: tmt
