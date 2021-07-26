@@ -1,11 +1,11 @@
-summary: TMT/TFT plan for running SCL tests on Fedora
+summary: TMT/TFT plan for running docker or OpenShift 3 tests on CentOS-7
 description: |
-    Runs tests on Fedora
+    Run tests on CentOS-7
 
 discover:
     how: shell
     tests:
-    - name: Run tests on fedora OS
+    - name: Run tests on CentOS-7, depends on TEST_NAME
       framework: shell
       test: cd /tmp/$REPO_NAME && make $TEST_NAME TARGET=$OS
       duration: 3h
