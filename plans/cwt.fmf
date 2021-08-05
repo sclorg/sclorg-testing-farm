@@ -13,7 +13,7 @@ discover:
 prepare:
     how: shell
     script: |
-        dnf -y install podman git
+        dnf -y install podman git make
         git clone $REPO_URL /tmp/$REPO_NAME
         cd /tmp/$REPO_NAME
         git fetch origin +refs/pull/*:refs/remotes/origin/pr/*
