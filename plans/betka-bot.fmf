@@ -16,9 +16,9 @@ prepare:
         dnf -y install podman git make docker-compose
         git clone $REPO_URL /tmp/$REPO_NAME
         cd /tmp/$REPO_NAME
-        echo "GIHUB_API_TOKEN=dummy\nPAGURE_API_TOKEN=dummy" > secrets.env
         git fetch origin +refs/pull/*:refs/remotes/origin/pr/*
         git checkout origin/pr/$PR_NUMBER/head
+        echo "GIHUB_API_TOKEN=dummy\nPAGURE_API_TOKEN=dummy" > secrets.env
         make build-test
 
 execute:
