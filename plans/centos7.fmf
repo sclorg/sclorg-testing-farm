@@ -19,7 +19,7 @@ prepare:
         yum -y install rh-python36-python-virtualenv origin-clients distgen https://kojipkgs.fedoraproject.org//packages/source-to-image/1.1.7/3.fc29/x86_64/source-to-image-1.1.7-3.fc29.x86_64.rpm #source-to-image
         mkdir -p /etc/rhsm/ca && touch /etc/rhsm/ca/redhat-uep.pem
         git clone https://github.com/sclorg/ci-scripts /root/ci-scripts
-        /tmp/ci-scripts/jenkins_ci/prepare-centos-docker.sh
+        /root/ci-scripts/jenkins_ci/prepare-centos-docker.sh
         git clone $REPO_URL /root/$REPO_NAME
         cd /root/$REPO_NAME
         git fetch origin +refs/pull/*:refs/remotes/origin/pr/*
