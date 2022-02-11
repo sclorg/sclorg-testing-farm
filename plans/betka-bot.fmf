@@ -1,6 +1,6 @@
-summary: TMT/TFT plan for running betka-fedmsg tests on Fedora34
+summary: TMT/TFT plan for running betka tests on Fedora34
 description: |
-    Runs betka-fedmsg tests on Fedora
+    Runs betka tests on Fedora
 
 discover:
     how: shell

@@ -1,6 +1,6 @@
-summary: TMT/TFT plan for running container-workflow-tool tests on Fedora34
+summary: TMT/TFT plan for running container-ci-suite tests on Fedora34
 description: |
-    Runs cwt tests on Fedora
+    Runs container-ci-suite tests on Fedora
 
 discover:
     how: shell
