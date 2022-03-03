@@ -1,11 +1,11 @@
-summary: TMT/TFT plan for running docker or OpenShift 3 tests on CentOS-7
+summary: TMT/TFT plan for running docker or OpenShift 3 tests on Fedora
 description: |
-    Run tests on CentOS-7
+    Run tests on Fedora
 
 discover:
     how: shell
     tests:
-    - name: Run tests on CentOS-7, depends on TEST_NAME
+    - name: Run tests on Fedora, depends on TEST_NAME
       framework: shell
       test: cd /tmp/$REPO_NAME && make $TEST_NAME TARGET=$OS
       duration: 3h
