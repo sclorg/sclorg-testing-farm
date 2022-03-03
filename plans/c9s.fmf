@@ -19,7 +19,6 @@ prepare:
         # yum -y copr enable praiskup/distgen
         yum -y install https://download.copr.fedorainfracloud.org/results/praiskup/distgen/epel-9-x86_64/03288110-distgen/distgen-1.10-999.git_54_85e6f.el9.noarch.rpm
         touch /etc/containers/nodocker
-        docker login -u=$QUAY_USERNAME -p=$QUAY_TOKEN quay.io
         git clone $REPO_URL /tmp/$REPO_NAME
         cd /tmp/$REPO_NAME
         git fetch origin +refs/pull/*:refs/remotes/origin/pr/*
