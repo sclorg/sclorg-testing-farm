@@ -14,7 +14,7 @@ prepare:
     how: shell
     script: |
         # TODO install packages by ansible playbook
-        curl https://copr.fedorainfracloud.org/coprs/praiskup/distgen/repo/epel-9/praiskup-distgen-epel-9.repo > /etc/yum.repos.d/distgen-epel-9.repo
+        curl -o /etc/yum.repos.d/distgen-epel-9.repo https://copr.fedorainfracloud.org/coprs/praiskup/distgen/repo/epel-9/praiskup-distgen-epel-9.repo
         yum -y install docker git make distgen
         yum -y install https://kojihub.stream.centos.org/kojifiles/packages/golang-github-cpuguy83-md2man/2.0.0/16.gitaf8da76.el9/x86_64/golang-github-cpuguy83-md2man-2.0.0-16.gitaf8da76.el9.x86_64.rpm
         touch /etc/containers/nodocker
