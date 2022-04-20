@@ -15,7 +15,6 @@ prepare:
     script: |
         # TODO install packages by ansible playbook
         yum -y install docker git make distgen libseccomp-devel golang-github-cpuguy83-md2man
-        touch /etc/containers/nodocker
         git clone https://github.com/sclorg/ci-scripts /tmp/ci-scripts
         git clone $REPO_URL /tmp/$REPO_NAME
         cd /tmp/$REPO_NAME
