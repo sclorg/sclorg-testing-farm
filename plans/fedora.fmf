@@ -13,7 +13,9 @@ discover:
 prepare:
     how: shell
     script: |
-        yum -y install podman git make distgen libseccomp-devel golang-github-cpuguy83-md2man podman-docker openssl python-pip
+        yum -y install docker git make distgen libseccomp-devel golang-github-cpuguy83-md2man openssl python-pip
+        systemctl enable docker
+        systemctl start docker
         pip install docker-squash
         touch /etc/containers/nodocker
         git clone https://github.com/sclorg/ci-scripts /tmp/ci-scripts
