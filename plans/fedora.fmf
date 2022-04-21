@@ -13,7 +13,7 @@ discover:
 prepare:
     how: shell
     script: |
-        yum -y install podman git make distgen libseccomp-devel golang-github-cpuguy83-md2man podman-docker
+        yum -y install podman git make distgen libseccomp-devel golang-github-cpuguy83-md2man podman-docker openssl
         touch /etc/containers/nodocker
         git clone https://github.com/sclorg/ci-scripts /tmp/ci-scripts
         git clone $REPO_URL /tmp/$REPO_NAME
