@@ -17,7 +17,6 @@ prepare:
         systemctl enable docker
         systemctl start docker
         pip install docker-squash
-        touch /etc/containers/nodocker
         git clone https://github.com/sclorg/ci-scripts /tmp/ci-scripts
         git clone $REPO_URL /tmp/$REPO_NAME
         cd /tmp/$REPO_NAME
