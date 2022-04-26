@@ -18,6 +18,21 @@ prepare:
         yum -y install docker git make distgen
         yum -y install https://kojihub.stream.centos.org/kojifiles/packages/golang-github-cpuguy83-md2man/2.0.0/16.gitaf8da76.el9/x86_64/golang-github-cpuguy83-md2man-2.0.0-16.gitaf8da76.el9.x86_64.rpm
         touch /etc/containers/nodocker
+        # Download and install OCP4 client
+        export CLIENT_NAME="openshift-client-linux-4.4.33.tar.gz"
+        mkdir -p /usr/local/oc-v4.4/bin
+        pushd /tmp
+        curl -o ${CLIENT_NAME} https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.4.33/openshift-client-linux-4.4.33.tar.gz
+        tar -xzvf ${CLIENT_NAME}
+        mv oc /usr/local/oc-v4.4/bin
+        rm -f ./README ./kubectl ./${CLIENT_NAME}
+        popd
+        # Download kubeconfig
+        mkdir -p /root/.kube
+        curl -L https://url.corp.redhat.com/ocp-kubeconfig >/root/.kube/config
+        # Download kubepasswd
+        curl -L https://url.corp.redhat.com/kube >/root/.kube/ocp-kube
+        echo "export KUBEPASSWORD=/root/.kube/ocp-kube" >> /root/.bashrc
         git clone $REPO_URL /tmp/$REPO_NAME
         cd /tmp/$REPO_NAME
         git fetch origin +refs/pull/*:refs/remotes/origin/pr/*
