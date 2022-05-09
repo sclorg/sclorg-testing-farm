@@ -21,11 +21,6 @@ prepare:
         mkdir -p /etc/rhsm/ca && touch /etc/rhsm/ca/redhat-uep.pem
         git clone https://github.com/sclorg/ci-scripts /root/ci-scripts
         /root/ci-scripts/jenkins_ci/prepare-centos-docker.sh
-        git clone $REPO_URL /root/$REPO_NAME
-        cd /root/$REPO_NAME
-        git fetch origin +refs/pull/*:refs/remotes/origin/pr/*
-        git checkout origin/pr/$PR_NUMBER/head
-        git submodule update --init
 
 execute:
     how: tmt
