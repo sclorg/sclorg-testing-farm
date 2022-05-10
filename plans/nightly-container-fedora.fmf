@@ -7,7 +7,7 @@ discover:
     tests:
     - name: Run nightly tests
       framework: shell
-      test: cd /tmp/ci-scripts && ./daily_tests/daily_scl_tests.sh $OS $TEST
+      test: cd /root/ci-scripts && ./daily_tests/daily_scl_tests.sh $OS $TEST
       duration: 7h
 
 prepare:
@@ -17,7 +17,7 @@ prepare:
         systemctl enable docker
         systemctl start docker
         pip install docker-squash
-        git clone https://github.com/sclorg/ci-scripts /tmp/ci-scripts
+        git clone https://github.com/sclorg/ci-scripts /root/ci-scripts
 
 execute:
     how: tmt
