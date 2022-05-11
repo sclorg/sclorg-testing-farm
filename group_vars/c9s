@@ -1,0 +1,3 @@
+releasever: 8
+epel_repo: https://copr.fedorainfracloud.org/coprs/praiskup/distgen/repo/epel-9/praiskup-distgen-epel-9.repo
+yum_dest: /etc/yum.repos.d/distgen-epel-9.repo

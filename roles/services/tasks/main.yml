@@ -1,0 +1,12 @@
+---
+- name: Add relay host
+  lineinfile:
+    path: /etc/postfix/main.cf
+    regexp: '^relayhost = '
+    line: "relayhost = [smtp.corp.redhat.com]"
+
+- name: Run the basic services
+  service: state=started name="{{}}" enabled=yes
+  with_items:
+    - postfix
+    - docker

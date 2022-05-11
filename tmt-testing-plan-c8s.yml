@@ -1,0 +1,15 @@
+---
+# This Playbook is used
+# for testing containers on Testing Farm CentOS Stream 8
+
+- hosts: all
+  vars_files:
+    - "group_vars/c8s"
+
+  roles:
+    - role: epel_repo
+    - role: common_tools
+    - role: services
+    - role: clone_repos
+  become: true
+  become_user: root
