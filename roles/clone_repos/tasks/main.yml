@@ -1,0 +1,6 @@
+---
+- name: Clone ci-scripts repository
+  git:
+    repo: 'https://github.com/sclorg/ci-scripts'
+    dest: '/root/ci-scripts'
+    clone: yes

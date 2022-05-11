@@ -1,0 +1,97 @@
+---
+- name: Install basic tools
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - docker
+    - git
+    - make
+    - mailx
+    - distgen
+    - libseccomp-devel
+
+- name: Install basic tools for CentOS 7
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - perl
+    - centos-release-scl-rh
+    - groff-base
+    - centos-release-openshift-origin
+    - epel-release
+    - rh-python36-python-virtualenv
+    - origin-clients
+  when: releasever == 7
+
+- name: Install Fedora packages
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - golang-github-cpuguy83-md2man
+    - openssl
+    - python-pip
+  when: releasever > 30
+
+- name: Install CentOS 7 packages
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - http://cbs.centos.org/kojifiles/packages/golang-github-cpuguy83-go-md2man/1.0.4/4.0.el7/x86_64/golang-github-cpuguy83-go-md2man-1.0.4-4.0.el7.x86_64.rpm
+    - http://cbs.centos.org/kojifiles/packages/docker/1.13.1/87.git07f3374.el7/x86_64/docker-1.13.1-87.git07f3374.el7.x86_64.rpm
+    - http://cbs.centos.org/kojifiles/packages/docker/1.13.1/87.git07f3374.el7/x86_64/docker-client-1.13.1-87.git07f3374.el7.x86_64.rpm
+    - http://cbs.centos.org/kojifiles/packages/docker/1.13.1/87.git07f3374.el7/x86_64/docker-common-1.13.1-87.git07f3374.el7.x86_64.rpm
+    - http://cbs.centos.org/kojifiles/packages/docker/1.13.1/87.git07f3374.el7/x86_64/docker-rhel-push-plugin-1.13.1-87.git07f3374.el7.x86_64.rpm
+    - https://kojipkgs.fedoraproject.org//packages/source-to-image/1.1.7/3.fc29/x86_64/source-to-image-1.1.7-3.fc29.x86_64.rpm
+  when: releasever == 7
+
+- name: Install CentOS Stream 8 packages
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/g/golang-github-cpuguy83-md2man-2.0.0-4.20210612gitaf8da76.el8.x86_64.rpm
+  when: releasever == 8
+
+- name: Install CentOS Stream 9 packages
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - https://kojihub.stream.centos.org/kojifiles/packages/golang-github-cpuguy83-md2man/2.0.0/16.gitaf8da76.el9/x86_64/golang-github-cpuguy83-md2man-2.0.0-16.gitaf8da76.el9.x86_64.rpm
+
+  when: releasever ==
+
+
+- name: Create dir ca for CentOS 7
+  file:
+    path: /etc/rhsm/ca
+    state: directory
+    owner: root
+    group: root
+  when: releasever == 7
+
+- name: ensure file /etc/rhsm/ca/redhat-uep exists
+  copy:
+    content: ""
+    dest: /etc/rhsm/ca/redhat-uep.pem
+    force: no
+    group: root
+    owner: root
+  when: releasever == 7
+
+- name: ensure file /etc/containers/nodocker exists
+  copy:
+    content: ""
+    dest: /etc/containers/nodocker
+    force: no
+    group: root
+    owner: root
+  when: releasever > 7
+
+- name: Install docker-squash from PIP
+  pip:
+    name: docker-squash

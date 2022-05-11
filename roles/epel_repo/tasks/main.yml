@@ -1,0 +1,6 @@
+---
+- name: Add EPEL repo
+  get_url:
+    url: "{{ epel_repo }}"
+    dest: "{{ yum_dest }}"
+  when: releasever < 30
