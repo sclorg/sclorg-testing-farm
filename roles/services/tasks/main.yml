@@ -5,8 +5,13 @@
     regexp: '^relayhost = '
     line: "relayhost = [smtp.corp.redhat.com]"
 
-- name: Run the basic services
-  service: state=started name="{{}}" enabled=yes
+- name: Run the postfix service
+  service: state=started name="{{ item }}" enabled=yes
   with_items:
     - postfix
+
+- name: Run the docker service
+  service: state=started name="{{ item }}" enabled=yes
+  with_items:
     - docker
+  when: releasever > 30

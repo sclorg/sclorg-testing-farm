@@ -10,6 +10,7 @@
     - mailx
     - distgen
     - libseccomp-devel
+    - postfix
 
 - name: Install basic tools for CentOS 7
   package:
@@ -47,6 +48,7 @@
     - docker-client
     - docker-common
     - https://kojipkgs.fedoraproject.org//packages/source-to-image/1.1.7/3.fc29/x86_64/source-to-image-1.1.7-3.fc29.x86_64.rpm
+    - https://cbs.centos.org/kojifiles/packages/golang-github-cpuguy83-go-md2man/1.0.4/4.0.el7/x86_64/golang-github-cpuguy83-go-md2man-1.0.4-4.0.el7.x86_64.rpm
   when: releasever == 7
 
 - name: Install CentOS Stream 8 packages
@@ -93,8 +95,10 @@
     force: no
     group: root
     owner: root
-  when: releasever > 7
+  when: releasever == 8 or releasever == 9
 
 - name: Install docker-squash from PIP
   pip:
     name: docker-squash
+    executable: pip3
+  when: releasever > 30
