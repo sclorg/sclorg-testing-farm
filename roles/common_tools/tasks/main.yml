@@ -40,6 +40,7 @@
   package:
     name: "{{ item }}"
     state: latest
+    validate_certs: no
   with_items:
     - ca-certificates
     - http://cbs.centos.org/kojifiles/packages/golang-github-cpuguy83-go-md2man/1.0.4/4.0.el7/x86_64/golang-github-cpuguy83-go-md2man-1.0.4-4.0.el7.x86_64.rpm
@@ -54,6 +55,7 @@
   package:
     name: "{{ item }}"
     state: latest
+    validate_certs: no
   with_items:
     - https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/g/golang-github-cpuguy83-md2man-2.0.0-4.20210612gitaf8da76.el8.x86_64.rpm
   when: releasever == 8
@@ -62,10 +64,11 @@
   package:
     name: "{{ item }}"
     state: latest
+    validate_certs: no
   with_items:
     - https://kojihub.stream.centos.org/kojifiles/packages/golang-github-cpuguy83-md2man/2.0.0/16.gitaf8da76.el9/x86_64/golang-github-cpuguy83-md2man-2.0.0-16.gitaf8da76.el9.x86_64.rpm
 
-  when: releasever ==
+  when: releasever == 9
 
 
 - name: Create dir ca for CentOS 7
