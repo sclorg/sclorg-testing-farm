@@ -17,6 +17,7 @@
     state: latest
   with_items:
     - perl
+    - rsync
     - centos-release-scl-rh
     - groff-base
     - centos-release-openshift-origin
@@ -40,6 +41,7 @@
     name: "{{ item }}"
     state: latest
   with_items:
+    - ca-certificates
     - http://cbs.centos.org/kojifiles/packages/golang-github-cpuguy83-go-md2man/1.0.4/4.0.el7/x86_64/golang-github-cpuguy83-go-md2man-1.0.4-4.0.el7.x86_64.rpm
     - http://cbs.centos.org/kojifiles/packages/docker/1.13.1/87.git07f3374.el7/x86_64/docker-1.13.1-87.git07f3374.el7.x86_64.rpm
     - http://cbs.centos.org/kojifiles/packages/docker/1.13.1/87.git07f3374.el7/x86_64/docker-client-1.13.1-87.git07f3374.el7.x86_64.rpm
