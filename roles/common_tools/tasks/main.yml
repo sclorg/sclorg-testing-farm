@@ -24,6 +24,7 @@
     - epel-release
     - rh-python36-python-virtualenv
     - origin-clients
+    - python3-pip
   when: releasever == 7
 
 - name: Install Fedora packages
