@@ -3,4 +3,5 @@
   get_url:
     url: "{{ epel_repo }}"
     dest: "{{ yum_dest }}"
+    validate_certs: no
   when: releasever < 30
