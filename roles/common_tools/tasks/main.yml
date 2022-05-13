@@ -11,6 +11,7 @@
     - distgen
     - libseccomp-devel
     - postfix
+    - acl
 
 - name: Install basic tools for CentOS 7
   package:
