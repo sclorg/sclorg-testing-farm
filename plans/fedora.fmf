@@ -7,7 +7,7 @@ discover:
     tests:
     - name: Run tests on Fedora, depends on TEST_NAME
       framework: shell
-      test: cd /root/$REPO_NAME && make $TEST_NAME TARGET=$OS VERSIONS=$VERSION
+      test: cd /root/$REPO_NAME && make $TEST_NAME TARGET=$OS
       duration: 6h
 
 prepare:
