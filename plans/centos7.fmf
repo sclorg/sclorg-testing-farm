@@ -7,7 +7,7 @@ discover:
     tests:
     - name: Run CentOS7 tests on CentOS-7, depends on TEST_NAME
       framework: shell
-      test: cd /root/$REPO_NAME && make $TEST_NAME TARGET=$OS VERSIONS=$VERSION
+      test: cd /root/$REPO_NAME && make $TEST_NAME TARGET=$OS
       duration: 3h
 
 prepare:
