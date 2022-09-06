@@ -7,7 +7,7 @@ discover:
     tests:
     - name: Run docker tests on CentOS Stream 8, depends on TEST_NAME
       framework: shell
-      test: cd /tmp/$REPO_NAME && make $TEST_NAME TARGET=$OS SINGLE_VERSION=$VERSION
+      test: cd /tmp/$REPO_NAME && make $TEST_NAME TARGET=$OS SINGLE_VERSION=$SINGLE_VERSION
       duration: 3h
 
 prepare:
