@@ -97,9 +97,3 @@
     group: root
     owner: root
   when: releasever == 8 or releasever == 9
-
-- name: Install docker-squash from PIP
-  pip:
-    name: docker-squash
-    executable: pip3
-  when: releasever > 30
