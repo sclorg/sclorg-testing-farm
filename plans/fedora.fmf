@@ -16,7 +16,6 @@ prepare:
         yum -y install docker git make distgen acl libseccomp-devel golang-github-cpuguy83-md2man openssl python-pip
         systemctl enable docker
         systemctl start docker
-        pip install docker-squash
         git clone https://github.com/sclorg/ci-scripts /root/ci-scripts
         git clone $REPO_URL /root/$REPO_NAME
         cd /root/$REPO_NAME
