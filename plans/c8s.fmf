@@ -1,11 +1,11 @@
-summary: TMT/TFT plan for running docker tests on CentOS Stream 8
+summary: TMT/TFT plan for running container tests on CentOS Stream 8
 description: |
-    Run docker tests on CentOS Stream 8
+    Run container tests on CentOS Stream 8
 
 discover:
     how: shell
     tests:
-    - name: Run docker tests on CentOS Stream 8, depends on TEST_NAME
+    - name: Run container tests on CentOS Stream 8, depends on TEST_NAME
       framework: shell
       test: cd /tmp/$REPO_NAME && make $TEST_NAME TARGET=$OS SINGLE_VERSION=$SINGLE_VERSION
       duration: 3h

@@ -1,4 +1,4 @@
-summary: TMT/TFT plan for running CentOS 7 docker or OpenShift 3 tests on CentOS-7
+summary: TMT/TFT plan for running CentOS 7 container or OpenShift 3 tests on CentOS-7
 description: |
     Run CentOS7 tests on CentOS-7
 

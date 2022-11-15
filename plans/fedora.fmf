@@ -1,4 +1,4 @@
-summary: TMT/TFT plan for running docker or OpenShift 3 tests on Fedora
+summary: TMT/TFT plan for running container or OpenShift 3 tests on Fedora
 description: |
     Run tests on Fedora
 
@@ -14,6 +14,7 @@ prepare:
     how: shell
     script: |
         yum -y install podman podman-docker git make distgen acl libseccomp-devel golang-github-cpuguy83-md2man openssl python-pip
+        touch /etc/containers/nodocker
         git clone https://github.com/sclorg/ci-scripts /root/ci-scripts
         git clone $REPO_URL /root/$REPO_NAME
         cd /root/$REPO_NAME

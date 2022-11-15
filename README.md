@@ -8,8 +8,8 @@ Available testing plans:
 |  --------------         |------------               |
 | `betka-bot.fmf`         | Runs betka tests on Fedora|
 | `betka-fedmsg.fmf`      | Runs betka-fedmsg tests on Fedora      |
-| `c9s.fmf`               | Runs docker tests on CentOS Stream 9   |
+| `c9s.fmf`               | Runs container tests on CentOS Stream 9   |
 | `fedora.fmf`            | WIP (Work In Progress)    |
-| `centos7.fmf`           | Runs docker or OpenShift 3 tests on CentOS 7|
+| `centos7.fmf`           | Runs container or OpenShift 3 tests on CentOS 7|
 | `container-ci-suite.fmf`| Runs container-ci-suite tests on Fedora|
 | `cwt.fmf`               | Runs cwt tests on Fedora  |
