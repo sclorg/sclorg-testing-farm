@@ -17,7 +17,7 @@ prepare:
         curl -o /etc/yum.repos.d/distgen-epel-7.repo https://copr.fedorainfracloud.org/coprs/praiskup/distgen/repo/epel-7/praiskup-distgen-epel-7.repo
         yum -y install podman podman-docker perl git centos-release-scl-rh rsync groff-base centos-release-openshift-origin epel-release http://cbs.centos.org/kojifiles/packages/golang-github-cpuguy83-go-md2man/1.0.4/4.0.el7/x86_64/golang-github-cpuguy83-go-md2man-1.0.4-4.0.el7.x86_64.rpm
         touch /etc/containers/nodocker
-        yum -y install rh-python36-python-virtualenv origin-clients distgen https://kojipkgs.fedoraproject.org//packages/source-to-image/1.1.7/3.fc29/x86_64/source-to-image-1.1.7-3.fc29.x86_64.rpm python3 #source-to-image
+        yum -y install rh-python36-python-virtualenv origin-clients distgen python3
         mkdir -p /etc/rhsm/ca && touch /etc/rhsm/ca/redhat-uep.pem
         git clone $REPO_URL /root/$REPO_NAME
         cd /root/$REPO_NAME
