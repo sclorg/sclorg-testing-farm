@@ -39,13 +39,6 @@
     - python-pip
   when: releasever > 30
 
-- name: Install distgen package
-  package:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - distgen
-
 - name: Install CentOS 7 packages
   package:
     name: "{{ item }}"
