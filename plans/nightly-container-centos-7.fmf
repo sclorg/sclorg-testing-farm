@@ -16,10 +16,5 @@ prepare:
       playbook:
         - tmt-testing-plan-centos7.yml
 
-    - name: Prepare CentOS for docker
-      how: shell
-      script: |
-        /root/ci-scripts/jenkins_ci/prepare-centos-docker.sh
-
 execute:
     how: tmt
