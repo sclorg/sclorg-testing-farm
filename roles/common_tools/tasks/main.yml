@@ -4,11 +4,12 @@
     name: "{{ item }}"
     state: latest
   with_items:
-    - docker
+    - podman
+    - podman-docker
+    - perl
     - git
     - make
     - mailx
-    - distgen
     - libseccomp-devel
     - postfix
     - acl
@@ -18,7 +19,6 @@
     name: "{{ item }}"
     state: latest
   with_items:
-    - perl
     - rsync
     - centos-release-scl-rh
     - groff-base
@@ -46,9 +46,6 @@
     validate_certs: no
   with_items:
     - ca-certificates
-    - docker-client
-    - docker-common
-    - https://kojipkgs.fedoraproject.org//packages/source-to-image/1.1.7/3.fc29/x86_64/source-to-image-1.1.7-3.fc29.x86_64.rpm
     - https://cbs.centos.org/kojifiles/packages/golang-github-cpuguy83-go-md2man/1.0.4/4.0.el7/x86_64/golang-github-cpuguy83-go-md2man-1.0.4-4.0.el7.x86_64.rpm
   when: releasever == 7
 
@@ -68,7 +65,6 @@
     validate_certs: no
   with_items:
     - https://kojihub.stream.centos.org/kojifiles/packages/golang-github-cpuguy83-md2man/2.0.0/16.gitaf8da76.el9/x86_64/golang-github-cpuguy83-md2man-2.0.0-16.gitaf8da76.el9.x86_64.rpm
-
   when: releasever == 9
 
 
@@ -96,4 +92,3 @@
     force: no
     group: root
     owner: root
-  when: releasever == 8 or releasever == 9
