@@ -3,13 +3,14 @@ description: |
     Run container tests on CentOS Stream 8
 
 prepare:
+    - name: Enable repositories and prepare machine for tests
+      how: ansible
+      playbook:
+        - tmt-testing-plan-c8s.yml
+      extra-args: -vv
+
     how: shell
     script: |
-        # TODO install packages by ansible playbook
-        curl -o /etc/yum.repos.d/distgen-epel-8.repo https://copr.fedorainfracloud.org/coprs/praiskup/distgen/repo/epel-8/praiskup-distgen-epel-8.repo
-        yum -y install podman-docker podman git make libseccomp-devel ansible
-        yum -y install https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/g/golang-github-cpuguy83-md2man-2.0.0-4.20210612gitaf8da76.el8.x86_64.rpm
-        touch /etc/containers/nodocker
         git clone $REPO_URL /root/$REPO_NAME
         cd /root/$REPO_NAME
         git fetch origin +refs/pull/*:refs/remotes/origin/pr/*

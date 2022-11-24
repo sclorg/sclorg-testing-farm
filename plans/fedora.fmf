@@ -2,11 +2,14 @@ summary: TMT/TFT plan for running container or OpenShift 3 tests on Fedora
 description: |
     Run tests on Fedora
 prepare:
+    - name: Enable repositories and prepare machine for tests
+      how: ansible
+      playbook:
+        - tmt-testing-plan-fedora.yml
+      extra-args: -vv
+
     how: shell
     script: |
-        yum -y install podman podman-docker git make acl libseccomp-devel golang-github-cpuguy83-md2man openssl python-pip ansible
-        touch /etc/containers/nodocker
-        git clone https://github.com/sclorg/ci-scripts /root/ci-scripts
         git clone $REPO_URL /root/$REPO_NAME
         cd /root/$REPO_NAME
         git fetch origin +refs/pull/*:refs/remotes/origin/pr/*

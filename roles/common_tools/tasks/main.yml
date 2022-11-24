@@ -77,18 +77,29 @@
   when: releasever == 7
 
 - name: ensure file /etc/rhsm/ca/redhat-uep exists
-  copy:
-    content: ""
-    dest: /etc/rhsm/ca/redhat-uep.pem
-    force: no
-    group: root
-    owner: root
+  file:
+    path: /etc/rhsm/ca/redhat-uep.pem
+    state: touch
+    mode: 0644
   when: releasever == 7
 
-- name: ensure file /etc/containers/nodocker exists
-  copy:
-    content: ""
-    dest: /etc/containers/nodocker
-    force: no
-    group: root
+- name: Create dir containers for CentOS7
+  file:
+    path: /etc/containers
+    state: directory
     owner: root
+    group: root
+  when: releasever == 7
+
+- name: Create dir /etc/containers
+  file:
+    path: /etc/containers
+    state: directory
+    owner: root
+    group: root
+
+- name: ensure file /etc/containers/nodocker exists
+  file:
+    path: /etc/containers/nodocker
+    state: touch
+    mode: 0644

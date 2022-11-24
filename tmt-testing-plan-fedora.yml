@@ -7,7 +7,6 @@
     - "group_vars/fedora"
 
   roles:
-    - role: epel_repo
     - role: common_tools
     - role: services
     - role: clone_repos
