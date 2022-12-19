@@ -1,0 +1,49 @@
+on:
+  issue_comment:
+    types:
+      - created
+jobs:
+  build:
+    # This job only runs for '[test]' pull request comments by owner, member
+    name: "Check for presence mandatory RPMs on ${{ matrix.context }} host"
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        - os: "fedora"
+          context: "Fedora"
+          compose: "Fedora-latest"
+        - os: "centos7"
+          context: "CentOS 7"
+          compose: "CentOS-7"
+        - os: "c8s"
+          context: "CentOS Stream 8"
+          compose: "CentOS-Stream-8"
+        - os: "c9s"
+          context: "CentOS Stream 9"
+          compose: "CentOS-Stream-9"
+
+    if: |
+      github.event.issue.pull_request
+      && (contains(github.event.comment.body, '[test]') || contains(github.event.comment.body, '[test-all]'))
+      && contains(fromJson('["OWNER", "MEMBER"]'), github.event.comment.author_association)
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          ref: "refs/pull/${{ github.event.issue.number }}/head"
+      # https://github.com/sclorg/testing-farm-as-github-action
+      - name: Schedule tests on external Testing Farm by Testing-Farm-as-github-action
+        id: github_action
+        uses: sclorg/testing-farm-as-github-action@v1
+        with:
+          api_key: ${{ secrets.TF_PUBLIC_API_KEY }}
+          git_url: "https://github.com/sclorg/sclorg-testing-farm"
+          git_ref: "main"
+          tf_scope: "public"
+          tmt_context: "trigger=code"
+          tmt_plan_regex: "test-plans-${{ matrix.os }}"
+          pull_request_status_name: "RPM check for presence in ${{ matrix.context }}"
+          variables: "REPO_URL=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY;REPO_NAME=$GITHUB_REPOSITORY;PR_NUMBER=${{ github.event.issue.number }};OS=${{ matrix.os }}"
+          compose: ${{ matrix.compose }}

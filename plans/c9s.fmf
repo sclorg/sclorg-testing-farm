@@ -2,27 +2,50 @@ summary: TMT/TFT plan for running container tests on CentOS Stream 9
 description: |
     Run container tests on CentOS Stream 9
 
-discover:
-    how: shell
-    tests:
-    - name: Run container tests on CentOS Stream 9, depends on TEST_NAME
-      framework: shell
-      test: cd /tmp/$REPO_NAME && make $TEST_NAME TARGET=$OS SINGLE_VERSION=$SINGLE_VERSION
-      duration: 3h
+    prepare:
+        how: shell
+        script: |
+            # TODO install packages by ansible playbook
+            curl -o /etc/yum.repos.d/distgen-epel-9.repo https://copr.fedorainfracloud.org/coprs/praiskup/distgen/repo/epel-9/praiskup-distgen-epel-9.repo
+            yum -y install podman podman-docker git make distgen
+            yum -y install https://kojihub.stream.centos.org/kojifiles/packages/golang-github-cpuguy83-md2man/2.0.0/16.gitaf8da76.el9/x86_64/golang-github-cpuguy83-md2man-2.0.0-16.gitaf8da76.el9.x86_64.rpm
+            touch /etc/containers/nodocker
+            git clone $REPO_URL /tmp/$REPO_NAME
+            cd /tmp/$REPO_NAME
+            git fetch origin +refs/pull/*:refs/remotes/origin/pr/*
+            git checkout origin/pr/$PR_NUMBER/head
+            git submodule update --init
 
-prepare:
-    how: shell
-    script: |
-        # TODO install packages by ansible playbook
-        curl -o /etc/yum.repos.d/distgen-epel-9.repo https://copr.fedorainfracloud.org/coprs/praiskup/distgen/repo/epel-9/praiskup-distgen-epel-9.repo
-        yum -y install podman podman-docker git make distgen
-        yum -y install https://kojihub.stream.centos.org/kojifiles/packages/golang-github-cpuguy83-md2man/2.0.0/16.gitaf8da76.el9/x86_64/golang-github-cpuguy83-md2man-2.0.0-16.gitaf8da76.el9.x86_64.rpm
-        touch /etc/containers/nodocker
-        git clone $REPO_URL /tmp/$REPO_NAME
-        cd /tmp/$REPO_NAME
-        git fetch origin +refs/pull/*:refs/remotes/origin/pr/*
-        git checkout origin/pr/$PR_NUMBER/head
-        git submodule update --init
+    execute:
+        how: tmt
 
-execute:
-    how: tmt
+/test-ci:
+    adjust:
+      - because: "Plan to be ran when either executed locally, or executed by CI system"
+        when: >-
+          trigger is defined
+          and trigger == code
+        enabled: false
+    discover:
+        how: shell
+        tests:
+        - name: Run container tests on CentOS Stream 9, depends on TEST_NAME
+          framework: shell
+          test: cd /tmp/$REPO_NAME && make $TEST_NAME TARGET=$OS SINGLE_VERSION=$SINGLE_VERSION
+          duration: 3h
+
+
+/test-plan:
+    adjust:
+      - because: "Plan to be ran when either executed locally, or executed by CI system."
+        when: >-
+          trigger is defined
+          and trigger == code
+        enabled: true
+    discover:
+        how: shell
+        tests:
+        - name: Run sclorg-testing-farm tests
+          framework: shell
+          test: cd /root/$REPO_NAME && OS="$OS" ansible-playbook tmt-sclorg-testing-plan.yml
+          duration: 1h

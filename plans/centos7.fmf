@@ -2,14 +2,6 @@ summary: TMT/TFT plan for running CentOS 7 container or OpenShift 3 tests on Cen
 description: |
     Run CentOS7 tests on CentOS-7
 
-discover:
-    how: shell
-    tests:
-    - name: Run CentOS7 tests on CentOS-7, depends on TEST_NAME
-      framework: shell
-      test: cd /root/$REPO_NAME && make $TEST_NAME TARGET=$OS SINGLE_VERSION=$SINGLE_VERSION
-      duration: 3h
-
 prepare:
     how: shell
     script: |
@@ -27,3 +19,33 @@ prepare:
 
 execute:
     how: tmt
+
+/test-ci:
+    adjust:
+      - because: "Plan to be ran when either executed locally, or executed by CI system."
+        when: >-
+          trigger is defined
+          and trigger == code
+        enabled: false
+    discover:
+        how: shell
+        tests:
+        - name: Run CentOS7 tests on CentOS-7, depends on TEST_NAME
+          framework: shell
+          test: cd /root/$REPO_NAME && make $TEST_NAME TARGET=$OS SINGLE_VERSION=$SINGLE_VERSION
+          duration: 3h
+
+/test-plan:
+    adjust:
+      - because: "Plan to be ran when either executed locally, or executed by CI system."
+        when: >-
+          trigger is defined
+          and trigger == code
+        enabled: true
+    discover:
+        how: shell
+        tests:
+        - name: Run sclorg-testing-farm tests
+          framework: shell
+          test: cd /root/$REPO_NAME && OS="$OS" ansible-playbook tmt-sclorg-testing-plan.yml
+          duration: 1h
