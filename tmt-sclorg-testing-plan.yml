@@ -12,7 +12,6 @@
       - podman
       - git
       - make
-      - distgen
       - golang-github-cpuguy83-go-md2man
     package_names_centos7:
       - perl
