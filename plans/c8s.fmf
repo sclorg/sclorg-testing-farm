@@ -35,7 +35,7 @@ execute:
 
 /test-plan:
     adjust:
-      - because: "Plan to be ran when either executed locally, or executed by CI system."
+      - because: "Plan to be ran for checking if packages and files are present as we want"
         when: >-
           trigger is defined
           and trigger == code
