@@ -13,18 +13,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        - os: "fedora"
-          context: "Fedora"
-          compose: "Fedora-latest"
-        - os: "centos7"
-          context: "CentOS 7"
-          compose: "CentOS-7"
-        - os: "c8s"
-          context: "CentOS Stream 8"
-          compose: "CentOS-Stream-8"
-        - os: "c9s"
-          context: "CentOS Stream 9"
-          compose: "CentOS-Stream-9"
+        os: ["fedora", "centos7", "c8s", "c9s"]
+        include:
+          - os: "fedora"
+            context: "Fedora"
+            compose: "Fedora-latest"
+          - os: "centos7"
+            context: "CentOS 7"
+            compose: "CentOS-7"
+          - os: "c8s"
+            context: "CentOS Stream 8"
+            compose: "CentOS-Stream-8"
+          - os: "c9s"
+            context: "CentOS Stream 9"
+            compose: "CentOS-Stream-9"
 
     if: |
       github.event.issue.pull_request
