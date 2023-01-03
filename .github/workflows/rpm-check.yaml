@@ -48,7 +48,7 @@ jobs:
           git_ref: "main"
           tf_scope: "public"
           tmt_context: "trigger=code"
-          tmt_plan_regex: "test-plans-${{ matrix.os }}"
+          tmt_plan_regex: "${{ matrix.os }}"
           pull_request_status_name: "RPM check for presence in ${{ matrix.context }}"
           variables: "REPO_URL=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY;REPO_NAME=$GITHUB_REPOSITORY;PR_NUMBER=${{ github.event.issue.number }};OS=${{ matrix.os }}"
           compose: ${{ matrix.compose }}
