@@ -1,10 +1,13 @@
+# Action is used for testing if RPM packages are installed on the specific host
+# As well as files are checked if mandatory files are present on the host
+# The action garants that host is prepared for testing containers
+# under https://github.com/sclorg organization
 on:
   issue_comment:
     types:
       - created
 jobs:
   build:
-    # This job only runs for '[test]' pull request comments by owner, member
     name: "Check for presence mandatory RPMs on ${{ matrix.context }} host"
     runs-on: ubuntu-20.04
     strategy:
