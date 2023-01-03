@@ -1,0 +1,81 @@
+---
+# This Playbook is used
+# for testing sclorg-testing-farm
+
+- name: Testing sclorg-testing-farm repo is everything is present in host provided by Testing Farm
+  hosts: "{{ hosts | default('localhost') }}"
+  vars:
+    os_test: "{{ lookup('env', 'OS') }}"
+    # This is used also for CentOS Stream 9, nothing else is needed
+    package_names_all:
+      - podman-docker
+      - podman
+      - git
+      - make
+      - golang-github-cpuguy83-go-md2man
+    package_names_centos7:
+      - perl
+      - centos-release-scl-rh
+      - rsync
+      - groff-base
+      - centos-release-openshift-origin
+      - epel-release
+      - rh-python36-python-virtualenv
+      - origin-clients
+      - python3
+    package_names_c8s:
+      - libseccomp-devel
+    package_names_fedora:
+      - acl
+      - libseccomp-devel
+      - opensll
+      - python-pip
+    files_to_check:
+      - /etc/containers/nodocker
+    files_to_check_centos7:
+      - /etc/yum.repos.d/distgen-epel-7.repo
+      - /etc/rhsm/ca/redhat-uep.pem
+    files_to_check_c8s:
+      - /etc/yum.repos.d/distgen-epel-8.repo
+    files_to_check_c9s:
+      - /etc/yum.repos.d/distgen-epel-9.repo
+
+
+  tasks:
+    - debug: msg="{{ os_test }}"
+    - block:
+        - name: Check if listed package is installed on CentOS 7
+          include_tasks: ./tasks/check_rpm_presents.yml
+          loop: "{{ package_names_all + package_names_centos7 }}"
+        - name: Check if files are present on CentOS 7
+          include_tasks: ./tasks/check_file_presents.yml
+          loop: "{{ files_to_check + files_to_check_centos7 }}"
+      when: (os_test is defined) and (os_test == "centos7")
+
+    - block:
+        - name: Check if listed package is installed on CentOS Stream 8
+          include_tasks: ./tasks/check_rpm_presents.yml
+          loop: "{{ package_names_all + package_names_c8s }}"
+        - name: Check if files are present on CentOS Stream 8
+          include_tasks: ./tasks/check_file_presents.yml
+          loop: "{{ files_to_check + files_to_check_c8s }}"
+      when: (os_test is defined) and (os_test == "c8s")
+
+    - block:
+        - name: Check if listed package is installed on CentOS Stream 9
+          include_tasks: ./tasks/check_rpm_presents.yml
+          loop: "{{ package_names_all }}"
+        - name: Check if files are present on CentOS Stream 9
+          include_tasks: ./tasks/check_file_presents.yml
+          loop: "{{ files_to_check + files_to_check_c9s }}"
+      when: (os_test is defined) and (os_test == "c9s")
+
+    - block:
+        - name: Check if listed package is installed on Fedora
+          include_tasks: ./tasks/check_rpm_presents.yml
+          loop: "{{ package_names_all + package_names_fedora }}"
+
+        - name: Check if file {{ item }} exists
+          include_tasks: ./tasks/check_file_presents.yml
+          loop: "{{ files_to_check }}"
+      when: (os_test is defined) and (os_test == "fedora")

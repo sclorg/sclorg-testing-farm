@@ -1,19 +1,10 @@
 summary: TMT/TFT plan for running container or OpenShift 3 tests on Fedora
 description: |
     Run tests on Fedora
-
-discover:
-    how: shell
-    tests:
-    - name: Run tests on Fedora, depends on TEST_NAME
-      framework: shell
-      test: cd /root/$REPO_NAME && make $TEST_NAME TARGET=$OS SINGLE_VERSION=$SINGLE_VERSION
-      duration: 6h
-
 prepare:
     how: shell
     script: |
-        yum -y install podman podman-docker git make distgen acl libseccomp-devel golang-github-cpuguy83-md2man openssl python-pip
+        yum -y install podman podman-docker git make acl libseccomp-devel golang-github-cpuguy83-md2man openssl python-pip
         touch /etc/containers/nodocker
         git clone https://github.com/sclorg/ci-scripts /root/ci-scripts
         git clone $REPO_URL /root/$REPO_NAME
@@ -24,3 +15,33 @@ prepare:
 
 execute:
     how: tmt
+
+/test-ci:
+    adjust:
+      - because: "Plan to be ran when either executed locally, or executed by CI system."
+        when: >-
+          trigger is defined
+          and trigger == code
+        enabled: false
+    discover:
+        how: shell
+        tests:
+        - name: Run tests on Fedora, depends on TEST_NAME
+          framework: shell
+          test: cd /root/$REPO_NAME && make $TEST_NAME TARGET=$OS SINGLE_VERSION=$SINGLE_VERSION
+          duration: 6h
+
+/test-plan:
+    adjust:
+      - because: "Plan to be ran for checking if packages and files are present as we want"
+        when: >-
+          trigger is defined
+          and trigger == code
+        enabled: true
+    discover:
+        how: shell
+        tests:
+        - name: Run sclorg-testing-farm tests
+          framework: shell
+          test: cd /root/$REPO_NAME && OS="$OS" ansible-playbook tmt-sclorg-testing-plan.yml
+          duration: 1h
