@@ -7,7 +7,7 @@ prepare:
     script: |
         # TODO install packages by ansible playbook
         curl -o /etc/yum.repos.d/distgen-epel-8.repo https://copr.fedorainfracloud.org/coprs/praiskup/distgen/repo/epel-8/praiskup-distgen-epel-8.repo
-        yum -y install podman-docker podman git make libseccomp-devel
+        yum -y install podman-docker podman git make libseccomp-devel ansible
         yum -y install https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/g/golang-github-cpuguy83-md2man-2.0.0-4.20210612gitaf8da76.el8.x86_64.rpm
         touch /etc/containers/nodocker
         git clone $REPO_URL /tmp/$REPO_NAME
@@ -19,6 +19,7 @@ execute:
     how: tmt
 
 /test-ci:
+    enabled: true
     adjust:
       - because: "Plan to be ran when either executed locally, or executed by CI system."
         when: >-
@@ -34,6 +35,7 @@ execute:
           duration: 3h
 
 /test-plan:
+    enabled: false
     adjust:
       - because: "Plan to be ran for checking if packages and files are present as we want"
         when: >-
