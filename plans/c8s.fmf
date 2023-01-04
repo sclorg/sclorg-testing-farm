@@ -14,10 +14,10 @@ prepare:
         git submodule update --init
 
     - name: Enable repositories and prepare machine for tests
-      how: ansible
-      playbook:
-        - tmt-testing-plan-c8s.yml
-      extra-args: -vv
+      how: shell
+      script: |
+        cd /root/$REPO_NAME
+        ansible-playbook --connection=local --inventory=127.0.0.1, --limit=127.0.0.1 tmt-testing-plan-c8s.yml -vvv
 
 execute:
     how: tmt
