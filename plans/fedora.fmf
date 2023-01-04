@@ -4,7 +4,7 @@ description: |
 prepare:
     how: shell
     script: |
-        yum -y install podman podman-docker git make acl libseccomp-devel golang-github-cpuguy83-md2man openssl python-pip
+        yum -y install podman podman-docker git make acl libseccomp-devel golang-github-cpuguy83-md2man openssl python-pip ansible
         touch /etc/containers/nodocker
         git clone https://github.com/sclorg/ci-scripts /root/ci-scripts
         git clone $REPO_URL /root/$REPO_NAME
@@ -17,6 +17,7 @@ execute:
     how: tmt
 
 /test-ci:
+    enabled: true
     adjust:
       - because: "Plan to be ran when either executed locally, or executed by CI system."
         when: >-
@@ -32,6 +33,7 @@ execute:
           duration: 6h
 
 /test-plan:
+    enabled: false
     adjust:
       - because: "Plan to be ran for checking if packages and files are present as we want"
         when: >-
