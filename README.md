@@ -1,4 +1,4 @@
-# FMF testing plans for usage in the Testing Farm service
+# FMF testing plans for usage in the Testing Farm service -- DUMMY
 
 This repository contains testing plans, which are used by the [sclorg's](https://github.com/sclorg/) testing GitHub Actions running on Testing Farm infrastructure.
 
