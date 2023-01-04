@@ -51,5 +51,5 @@ execute:
         tests:
         - name: Run sclorg-testing-farm tests
           framework: shell
-          test: cd /root/$REPO_NAME && OS="$OS" ansible-playbook tmt-sclorg-testing-plan.yml
+          test: cd /root/$REPO_NAME && OS="$OS" ansible-playbook tmt-sclorg-testing-plan.yml -vvv
           duration: 1h
