@@ -9,7 +9,6 @@
     - perl
     - git
     - make
-    - mailx
     - libseccomp-devel
     - postfix
     - acl
@@ -27,6 +26,7 @@
     - rh-python36-python-virtualenv
     - origin-clients
     - python3-pip
+    - mailx
   when: releasever == 7
 
 - name: Install Fedora packages
@@ -37,6 +37,7 @@
     - golang-github-cpuguy83-md2man
     - openssl
     - python-pip
+    - s-nail
   when: releasever > 30
 
 - name: Install CentOS 7 packages
@@ -44,6 +45,7 @@
     name: "{{ item }}"
     state: latest
     validate_certs: no
+    disable_gpg_check: true
   with_items:
     - ca-certificates
     - https://cbs.centos.org/kojifiles/packages/golang-github-cpuguy83-go-md2man/1.0.4/4.0.el7/x86_64/golang-github-cpuguy83-go-md2man-1.0.4-4.0.el7.x86_64.rpm
@@ -54,8 +56,10 @@
     name: "{{ item }}"
     state: latest
     validate_certs: no
+    disable_gpg_check: true
   with_items:
     - https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/g/golang-github-cpuguy83-md2man-2.0.0-4.20210612gitaf8da76.el8.x86_64.rpm
+    - mailx
   when: releasever == 8
 
 - name: Install CentOS Stream 9 packages
@@ -63,8 +67,10 @@
     name: "{{ item }}"
     state: latest
     validate_certs: no
+    disable_gpg_check: true
   with_items:
     - https://kojihub.stream.centos.org/kojifiles/packages/golang-github-cpuguy83-md2man/2.0.0/16.gitaf8da76.el9/x86_64/golang-github-cpuguy83-md2man-2.0.0-16.gitaf8da76.el9.x86_64.rpm
+    - s-nail
   when: releasever == 9
 
 
