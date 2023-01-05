@@ -14,10 +14,9 @@ prepare:
         git submodule update --init
 
     - name: Enable repositories and prepare machine for tests
-      how: shell
-      script: |
-        cd /root/$REPO_NAME
-        ansible-playbook --connection=local --inventory=127.0.0.1, --limit=127.0.0.1 tmt-testing-plan-centos7.yml -vvv
+      how: ansible
+      playbook:
+        - tmt-testing-plan-centos7.yml
 
 execute:
     how: tmt
@@ -30,6 +29,12 @@ execute:
           trigger is defined
           and trigger == code
         enabled: false
+    prepare+:
+      - name: Enable repositories and prepare machine for tests
+        how: ansible
+        playbook:
+          - tmt-testing-plan-centos7.yml
+        extra-vars: -vvv
     discover:
         how: shell
         tests:
@@ -46,10 +51,17 @@ execute:
           trigger is defined
           and trigger == code
         enabled: true
+    prepare+:
+      - name: Enable repositories and prepare machine for tests
+        how: shell
+        script: |
+          cd /root/$REPO_NAME
+          git status
+          ansible-playbook --connection=local --inventory=127.0.0.1, --limit=127.0.0.1 tmt-testing-plan-centos7.yml -vvv
     discover:
         how: shell
         tests:
         - name: Run sclorg-testing-farm tests
           framework: shell
-          test: cd /root/$REPO_NAME && OS="$OS" ansible-playbook tmt-sclorg-testing-plan.yml
+          test: cd /root/$REPO_NAME && git status && OS="$OS" ansible-playbook tmt-sclorg-testing-plan.yml
           duration: 1h

@@ -2,6 +2,7 @@
   stat:
     path: "{{ item }}"
   register: stat_result
+- debug: var=stat_result
 - name: Fail if file is not present
   fail: msg="This host {{ os_test }} does not contain file {{ item }}"
   when: stat_result.stat.exists != 0
