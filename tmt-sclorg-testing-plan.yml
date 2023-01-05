@@ -23,17 +23,21 @@
       - origin-clients
       - python3
       - golang-github-cpuguy83-go-md2man
+      - mailx
     package_names_c8s:
       - libseccomp-devel
       - golang-github-cpuguy83-md2man
+      - mailx
     package_names_c9s:
       - golang-github-cpuguy83-md2man
+      - s-nail
     package_names_fedora:
       - acl
       - libseccomp-devel
       - openssl
       - python3-pip
       - golang-github-cpuguy83-md2man
+      - s-nail
     files_to_check_fedora:
       - /etc/containers/nodocker
     files_to_check_centos7:
