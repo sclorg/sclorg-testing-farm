@@ -20,6 +20,15 @@
     - podman-docker
   when: releasever > 7
 
+- name: Uninstall podman and podman-docker from CentOS 7
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - podman
+    - podman-docker
+  when: releasever == 7
+
 - name: Install basic tools for CentOS 7
   package:
     name: "{{ item }}"
