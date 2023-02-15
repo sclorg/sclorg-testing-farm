@@ -4,8 +4,6 @@
     name: "{{ item }}"
     state: latest
   with_items:
-    - podman
-    - podman-docker
     - perl
     - git
     - make
@@ -13,12 +11,24 @@
     - postfix
     - acl
 
+- name: Install podman and podman-docker for CentOS Streams and Fedora
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - podman
+    - podman-docker
+  when: releasever > 7
+
 - name: Install basic tools for CentOS 7
   package:
     name: "{{ item }}"
     state: latest
   with_items:
     - rsync
+    - docker
+    - docker-client
+    - docker-common
     - centos-release-scl-rh
     - groff-base
     - centos-release-openshift-origin

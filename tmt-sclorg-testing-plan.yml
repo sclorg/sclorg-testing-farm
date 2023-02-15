@@ -7,8 +7,6 @@
   vars:
     os_test: "{{ lookup('env', 'OS') }}"
     package_names_all:
-      - podman-docker
-      - podman
       - git
       - make
       - ansible
@@ -24,14 +22,23 @@
       - python3
       - golang-github-cpuguy83-go-md2man
       - mailx
+      - docker
+      - docker-client
+      - docker-common
     package_names_c8s:
+      - podman-docker
+      - podman
       - libseccomp-devel
       - golang-github-cpuguy83-md2man
       - mailx
     package_names_c9s:
+      - podman-docker
+      - podman
       - golang-github-cpuguy83-md2man
       - s-nail
     package_names_fedora:
+      - podman-docker
+      - podman
       - acl
       - libseccomp-devel
       - openssl
