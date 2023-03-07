@@ -4,14 +4,20 @@
     name: "{{ item }}"
     state: latest
   with_items:
-    - podman
-    - podman-docker
     - perl
     - git
     - make
     - libseccomp-devel
     - postfix
     - acl
+
+- name: Install basic tools for CentOS 7
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - podman-docker
+  when: releasever == 7
 
 - name: Install basic tools for CentOS 7
   package:
@@ -27,6 +33,7 @@
     - origin-clients
     - python3-pip
     - mailx
+    - docker
   when: releasever == 7
 
 - name: Install Fedora packages
@@ -38,6 +45,8 @@
     - openssl
     - python-pip
     - s-nail
+    - podman
+    - podman-docker
   when: releasever > 30
 
 - name: Install CentOS 7 packages
@@ -60,6 +69,8 @@
   with_items:
     - https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/g/golang-github-cpuguy83-md2man-2.0.0-4.20210612gitaf8da76.el8.x86_64.rpm
     - mailx
+    - podman
+    - podman-docker
   when: releasever == 8
 
 - name: Install CentOS Stream 9 packages
@@ -71,6 +82,8 @@
   with_items:
     - https://kojihub.stream.centos.org/kojifiles/packages/golang-github-cpuguy83-md2man/2.0.0/16.gitaf8da76.el9/x86_64/golang-github-cpuguy83-md2man-2.0.0-16.gitaf8da76.el9.x86_64.rpm
     - s-nail
+    - podman
+    - podman-docker
   when: releasever == 9
 
 
@@ -103,9 +116,11 @@
     state: directory
     owner: root
     group: root
+  when: releasever > 7
 
 - name: ensure file /etc/containers/nodocker exists
   file:
     path: /etc/containers/nodocker
     state: touch
     mode: 0644
+  when: releasever > 7

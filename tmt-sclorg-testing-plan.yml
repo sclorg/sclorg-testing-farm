@@ -7,12 +7,11 @@
   vars:
     os_test: "{{ lookup('env', 'OS') }}"
     package_names_all:
-      - podman-docker
-      - podman
       - git
       - make
       - ansible
     package_names_centos7:
+      - docker
       - perl
       - centos-release-scl-rh
       - rsync
@@ -25,13 +24,19 @@
       - golang-github-cpuguy83-go-md2man
       - mailx
     package_names_c8s:
+      - podman-docker
+      - podman
       - libseccomp-devel
       - golang-github-cpuguy83-md2man
       - mailx
     package_names_c9s:
+      - podman-docker
+      - podman
       - golang-github-cpuguy83-md2man
       - s-nail
     package_names_fedora:
+      - podman-docker
+      - podman
       - acl
       - libseccomp-devel
       - openssl
@@ -42,6 +47,7 @@
       - /etc/containers/nodocker
     files_to_check_centos7:
       - /etc/rhsm/ca/redhat-uep.pem
+      - /etc/sysconfig/docker
     files_to_check_c8s:
       - /etc/containers/nodocker
     files_to_check_c9s:
