@@ -9,3 +9,9 @@
   service: state=started name="{{ item }}" enabled=yes
   with_items:
     - postfix
+
+- name: Run the docker service
+  service: state=started name="{{ item }}" enabled=yes
+  with_items:
+    - docker
+  when: releasever == 7
