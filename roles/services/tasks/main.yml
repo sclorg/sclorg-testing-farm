@@ -10,6 +10,23 @@
   with_items:
     - postfix
 
+- block:
+  - name: Create directory /etc/containers
+    file:
+      path: /etc/containers
+      state: directory
+      owner: root
+      group: root
+
+  - name: files/containers.conf file to /etc/containers/containers.conf
+    copy:
+      src: "files/containers.conf"
+      dest: "/etc/containers/containers.conf"
+      owner: root
+      group: root
+      mode: 0644
+  when: releasever > 30
+
 - name: Run the docker service
   service: state=started name="{{ item }}" enabled=yes
   with_items:
