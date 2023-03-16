@@ -45,6 +45,7 @@
       - s-nail
     files_to_check_fedora:
       - /etc/containers/nodocker
+      - /etc/containers/containers.conf
     files_to_check_centos7:
       - /etc/rhsm/ca/redhat-uep.pem
       - /etc/sysconfig/docker
