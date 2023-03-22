@@ -54,7 +54,7 @@ execute:
     discover:
         how: shell
         tests:
-        - name: Run sclorg-testing-farm tests
+        - name: 'Tests for OS: $OS, repo: $REPO_NAME'
           framework: shell
           test: cd /root/$REPO_NAME && git status && OS="$OS" ansible-playbook tmt-sclorg-testing-plan.yml
           duration: 1h
