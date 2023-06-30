@@ -67,7 +67,7 @@
     validate_certs: no
     disable_gpg_check: true
   with_items:
-    - https://download-ib01.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/g/golang-github-cpuguy83-md2man-2.0.0-4.20210612gitaf8da76.el8.x86_64.rpm
+    - https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/g/golang-github-cpuguy83-md2man-2.0.0-4.20210612gitaf8da76.el8.x86_64.rpm
     - mailx
     - podman
     - podman-docker
