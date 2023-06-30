@@ -13,14 +13,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["fedora", "centos7", "c8s", "c9s"]
+        os: ["fedora", "c8s", "c9s"]
         include:
           - os: "fedora"
             context: "Fedora"
             compose: "Fedora-latest"
-          - os: "centos7"
-            context: "CentOS 7"
-            compose: "CentOS-7"
           - os: "c8s"
             context: "CentOS Stream 8"
             compose: "CentOS-Stream-8"
