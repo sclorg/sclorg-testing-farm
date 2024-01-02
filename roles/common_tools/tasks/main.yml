@@ -11,31 +11,6 @@
     - postfix
     - acl
 
-- name: Install basic tools for CentOS 7
-  package:
-    name: "{{ item }}"
-    state: absent
-  with_items:
-    - podman-docker
-  when: releasever == 7
-
-- name: Install basic tools for CentOS 7
-  package:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - rsync
-    - centos-release-scl-rh
-    - groff-base
-    - centos-release-openshift-origin
-    - epel-release
-    - rh-python36-python-virtualenv
-    - origin-clients
-    - python3-pip
-    - mailx
-    - docker
-  when: releasever == 7
-
 - name: Install Fedora packages
   package:
     name: "{{ item }}"
@@ -48,17 +23,6 @@
     - podman
     - podman-docker
   when: releasever > 30
-
-- name: Install CentOS 7 packages
-  package:
-    name: "{{ item }}"
-    state: latest
-    validate_certs: no
-    disable_gpg_check: true
-  with_items:
-    - ca-certificates
-    - https://cbs.centos.org/kojifiles/packages/golang-github-cpuguy83-go-md2man/1.0.4/4.0.el7/x86_64/golang-github-cpuguy83-go-md2man-1.0.4-4.0.el7.x86_64.rpm
-  when: releasever == 7
 
 - name: Install CentOS Stream 8 packages
   package:
@@ -85,30 +49,6 @@
     - podman
     - podman-docker
   when: releasever == 9
-
-
-- name: Create dir ca for CentOS 7
-  file:
-    path: /etc/rhsm/ca
-    state: directory
-    owner: root
-    group: root
-  when: releasever == 7
-
-- name: ensure file /etc/rhsm/ca/redhat-uep exists
-  file:
-    path: /etc/rhsm/ca/redhat-uep.pem
-    state: touch
-    mode: 0644
-  when: releasever == 7
-
-- name: Create dir containers for CentOS7
-  file:
-    path: /etc/containers
-    state: directory
-    owner: root
-    group: root
-  when: releasever == 7
 
 - name: Create dir /etc/containers
   file:
