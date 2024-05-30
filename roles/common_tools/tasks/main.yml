@@ -50,6 +50,20 @@
     - podman-docker
   when: releasever == 9
 
+- name: Install CentOS Stream 10 packages
+  package:
+    name: "{{ item }}"
+    state: latest
+    validate_certs: no
+    disable_gpg_check: true
+  with_items:
+    - https://kojihub.stream.centos.org/kojifiles/vol/koji02/packages/golang-github-cpuguy83-md2man/2.0.3/3.el10/x86_64/golang-github-cpuguy83-md2man-2.0.3-3.el10.x86_64.rpm
+    - s-nail
+    - podman
+    - podman-docker
+  when: releasever == 10
+
+
 - name: Create dir /etc/containers
   file:
     path: /etc/containers
