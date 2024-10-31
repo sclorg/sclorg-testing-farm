@@ -1,0 +1,57 @@
+summary: TMT/TFT plan for running GPU Fedora
+description: |
+    Run tests on Fedora
+prepare:
+    - name: Clone repository and switch to corresponding PR
+      how: shell
+      script: |
+        dnf install -y git ansible
+        git clone $REPO_URL /root/$REPO_NAME
+        cd /root/$REPO_NAME
+        git fetch origin +refs/pull/*:refs/remotes/origin/pr/*
+        git checkout origin/pr/$PR_NUMBER/head
+        git submodule update --init
+execute:
+    how: tmt
+/test-ci:
+    enabled: true
+    adjust:
+      - because: "Plan to be ran when either executed locally, or executed by CI system."
+        when: >-
+          trigger is defined
+          and trigger == code
+        enabled: false
+    prepare+:
+        - name: Enable repositories and prepare machine for tests
+          how: ansible
+          playbook:
+            - tmt-testing-plan-fedora.yml
+    discover:
+        how: shell
+        tests:
+        - name: '$OS, container: $REPO_NAME, version: $SINGLE_VERSION'
+          framework: shell
+          test: cd /root/$REPO_NAME && make $TEST_NAME TARGET=$OS SINGLE_VERSION=$SINGLE_VERSION
+          duration: 6h
+/test-plan:
+    enabled: false
+    adjust:
+      - because: "Plan to be ran for checking if packages and files are present as we want"
+        when: >-
+          trigger is defined
+          and trigger == code
+        enabled: true
+    prepare+:
+      - name: Enable repositories and prepare machine for tests
+        how: shell
+        script: |
+          cd /root/$REPO_NAME
+          git status
+          ansible-playbook --connection=local --inventory=127.0.0.1, --limit=127.0.0.1 tmt-testing-plan-fedora.yml -vvv
+    discover:
+        how: shell
+        tests:
+        - name: 'Tests for OS: $OS, repo: $REPO_NAME'
+          framework: shell
+          test: cd /root/$REPO_NAME && git status && OS="$OS" ansible-playbook tmt-sclorg-testing-plan.yml
+          duration: 1h
