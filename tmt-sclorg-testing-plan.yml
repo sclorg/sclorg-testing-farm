@@ -10,55 +10,35 @@
       - git
       - make
       - ansible
-    package_names_centos7:
-      - docker
-      - perl
-      - centos-release-scl-rh
-      - rsync
-      - groff-base
-      - centos-release-openshift-origin
-      - epel-release
-      - rh-python36-python-virtualenv
-      - origin-clients
-      - python3
-      - golang-github-cpuguy83-go-md2man
-      - mailx
-    package_names_c8s:
       - podman-docker
       - podman
-      - libseccomp-devel
-      - golang-github-cpuguy83-md2man
-      - mailx
     package_names_c9s:
-      - podman-docker
-      - podman
       - golang-github-cpuguy83-md2man
       - s-nail
     package_names_c10s:
-      - podman-docker
-      - podman
       - golang-github-cpuguy83-md2man
       - s-nail
     package_names_fedora:
-      - podman-docker
-      - podman
       - acl
       - libseccomp-devel
       - openssl
       - python3-pip
       - golang-github-cpuguy83-md2man
       - s-nail
+    package_names_gpu_fedora:
+      - pciutils
+      - hwdata
     files_to_check_fedora:
-      - /etc/containers/nodocker
-    files_to_check_centos7:
-      - /etc/rhsm/ca/redhat-uep.pem
-      - /etc/sysconfig/docker
-    files_to_check_c8s:
       - /etc/containers/nodocker
     files_to_check_c9s:
       - /etc/containers/nodocker
     files_to_check_c10s:
       - /etc/containers/nodocker
+    files_to_check_gpu_fedora:
+      - /etc/containers/nodocker
+      - /usr/sbin/lspci
+    output_check_gpu_fedora_nvidia:
+      - { command: 'lspci -mm', device_name: 'GK210GL [Tesla K80]', vendor_name: 'NVIDIA' }
 
   tasks:
     - debug: msg="{{ os_test }}"
@@ -93,9 +73,13 @@
     - block:
         - name: Check if listed package is installed on Fedora
           include_tasks: ./tasks/check_rpm_presents.yml
-          loop: "{{ package_names_all + package_names_fedora }}"
+          loop: "{{ package_names_all + package_names_fedora + package_names_gpu_fedora }}"
 
         - name: Check if file {{ item }} exists
           include_tasks: ./tasks/check_file_presents.yml
-          loop: "{{ files_to_check_fedora }}"
+          loop: "{{ files_to_check_gpu_fedora }}"
+
+        - name: Check if output {{ item }} exists
+          include_tasks: ./tasks/check_output_command.yml
+          loop: "{{ output_check_gpu_fedora_nvidia }}"
       when: (os_test is defined) and (os_test == "gpu-fedora")
