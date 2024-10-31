@@ -21,6 +21,7 @@
     - s-nail
     - podman
     - podman-docker
+    - pciutils
   when: releasever > 30
 
 - name: Install CentOS Stream 8 packages
