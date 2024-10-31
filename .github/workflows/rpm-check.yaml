@@ -13,20 +13,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["fedora", "c8s", "c9s", "c10s"]
+        os: ["fedora", "gpu-fedora", "c9s", "c10s"]
         include:
           - os: "fedora"
             context: "Fedora"
             compose: "Fedora-41"
-          - os: "c8s"
-            context: "CentOS Stream 8"
-            compose: "CentOS-Stream-8"
+            tmt_hardware: ""
+          - os: "gpu-fedora"
+            context: "Fedora with GPU"
+            compose: "Fedora-41"
+            tmt_hardware: '{"gpu": {"device-name": "GK210 (Tesla K80)", "vendor-name": "NVIDIA"}}'
           - os: "c9s"
             context: "CentOS Stream 9"
             compose: "CentOS-Stream-9"
+            tmt_hardware: ""
           - os: "c10s"
             context: "CentOS Stream 10"
             compose: "CentOS-Stream-10"
+            tmt_hardware: ""
 
     if: |
       github.event.issue.pull_request
@@ -41,7 +45,7 @@ jobs:
       # https://github.com/sclorg/testing-farm-as-github-action
       - name: Schedule tests on external Testing Farm by Testing-Farm-as-github-action
         id: github_action
-        uses: sclorg/testing-farm-as-github-action@v1
+        uses: sclorg/testing-farm-as-github-action@main
         with:
           api_key: ${{ secrets.TF_PUBLIC_API_KEY }}
           git_url: "https://github.com/sclorg/sclorg-testing-farm"
@@ -49,6 +53,7 @@ jobs:
           tf_scope: "public"
           tmt_context: "trigger=code"
           tmt_plan_regex: "${{ matrix.os }}"
+          tmt_hardware: "${{ matrix.tmt_hardware }}"
           pull_request_status_name: "RPM check for presence in ${{ matrix.context }}"
           variables: "REPO_URL=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY;REPO_NAME=$GITHUB_REPOSITORY;PR_NUMBER=${{ github.event.issue.number }};OS=${{ matrix.os }}"
           compose: ${{ matrix.compose }}
