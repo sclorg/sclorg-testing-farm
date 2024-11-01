@@ -38,7 +38,7 @@
       - /etc/containers/nodocker
       - /usr/sbin/lspci
     output_check_gpu_fedora:
-      - "lspci -nn | grep NVidia"
+      - "lspci -mm"
 
   tasks:
     - debug: msg="{{ os_test }}"

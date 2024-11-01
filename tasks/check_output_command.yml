@@ -1,7 +1,9 @@
 - name: Check if output {{ item }} exists
   command: "{{ item }}"
   register: stat_result
+
 - debug: var=stat_result
+
 - name: Fail if output of command {{ item }} is not present
   fail: msg="This host {{ os_test }} does not contain file {{ item }}"
   when: not stat_result.stat.exists
