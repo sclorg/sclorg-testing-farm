@@ -37,8 +37,8 @@
     files_to_check_gpu_fedora:
       - /etc/containers/nodocker
       - /usr/sbin/lspci
-    output_check_gpu_fedora:
-      - "lspci -mm"
+    output_check_gpu_fedora_nvidia:
+      - { command: 'lspci -mm', device_name: 'GK210GL [Tesla K80]', vendor_name: 'NVIDIA' }
 
   tasks:
     - debug: msg="{{ os_test }}"
@@ -81,5 +81,5 @@
 
         - name: Check if output {{ item }} exists
           include_tasks: ./tasks/check_output_command.yml
-          loop: "{{ output_check_gpu_fedora }}"
+          loop: "{{ output_check_gpu_fedora_nvidia }}"
       when: (os_test is defined) and (os_test == "gpu-fedora")

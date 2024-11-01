@@ -1,8 +1,17 @@
-- name: Check if output {{ item }} exists
-  command: "{{ item }}"
+- name: Get command output
+  shell: "{{ item.command }}"
   register: stat_result
 
 - debug: var=stat_result
+
+- name: Check if required string 'vendor_name' is present in output
+  shell: "grep {{ item.vendor_name }} {{ stat_result.stdout }}"
+  register: device_result
+
+- debug: var=device_result
+
+- name: Check if required string 'device_name' is present in output
+  shell: "grep {{ item.device_name }} {{ device_result.stdout }}"
 
 - name: Fail if output of command {{ item }} is not present
   fail: msg="This host {{ os_test }} does not contain file {{ item }}"
