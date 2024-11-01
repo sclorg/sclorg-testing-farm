@@ -1,10 +1,10 @@
 ---
 # This Playbook is used
-# for testing containers on Testing Farm CentOS Stream 8
+# for testing containers on Testing Farm Fedora GPU
 
 - hosts: all
   vars_files:
-    - "group_vars/c8s"
+    - "group_vars/fedora"
 
   roles:
     - role: common_tools
