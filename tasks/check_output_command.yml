@@ -4,16 +4,20 @@
   register: stat_result
 
 - debug: var=stat_result
+- debug: var=item
+
+- set_fact:
+    device_name: "{{ item.device_name }}"
+    vendor_name: "{{ item.vendor_name }}"
 
 - name: Fail if output of command {{ item.command }} does not work
   fail: msg="This command {{ item.command }} does not work"
   when: stat_result.rc != 0
 
-- name: Fail if '{{ item.vendor_name }}' is NOT present in output
-  fail: msg="The vendor name {{ item.vendor_name }} is not present in '{{ item.command }}' output."
-  when: (stat_result["stdout"] is not defined) or ("{{ item.vendor_name }}" not in stat_result["stdout"])
+- name: Fail if "{{ item.vendor_name }}" is NOT present in output
+  fail: msg="The vendor name "{{ item.vendor_name }}" is not present in {{ item.command }} output."
+  when: (stat_result["stdout"] is not defined) or (vendor_name not in stat_result["stdout"])
 
-- name: Fail if '{{ item.device_name }}' is NOT present in output
-  fail: msg="The device name {{ item.device_name }} is not present in '{{ item.command }}' output."
-  when: (stat_result["stdout"] is not defined) or ("{{ item.device_name }}" not in stat_result["stdout"])
-
+- name: Fail if {{ item.device_name }} is NOT present in output
+  fail: msg="The device name {{ item.device_name }} is not present in {{ item.command }} output."
+  when: (stat_result["stdout"] is not defined) or (device_name not in stat_result["stdout"])
