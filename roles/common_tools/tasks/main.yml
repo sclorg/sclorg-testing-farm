@@ -4,7 +4,6 @@
     name: "{{ item }}"
     state: latest
   with_items:
-    - perl
     - git
     - make
     - libseccomp-devel
@@ -22,6 +21,7 @@
     - s-nail
     - podman
     - podman-docker
+    - pciutils
   when: releasever > 30
 
 - name: Install CentOS Stream 8 packages
