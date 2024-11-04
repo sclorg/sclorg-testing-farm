@@ -27,7 +27,7 @@ jobs:
           - os: "gpu-fedora"
             context: "Fedora with GPU GV100 (Tesla V100)"
             compose: "Fedora-41"
-            tmt_hardware: '{"gpu": {"device-name": "", "vendor-name": "NVIDIA"}}'
+            tmt_hardware: '{"gpu": {"device-name": "GV100 (Tesla V100)", "vendor-name": "NVIDIA"}}'
             hardware: "GV100"
           - os: "gpu-fedora"
             context: "Fedora with GPU GA100 (A100)"
