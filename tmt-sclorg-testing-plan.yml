@@ -6,6 +6,7 @@
   hosts: "{{ hosts | default('localhost') }}"
   vars:
     os_test: "{{ lookup('env', 'OS') }}"
+    gpu: "{{ lookup('env', 'GPU') }}"
     package_names_all:
       - git
       - make
@@ -34,11 +35,8 @@
       - /etc/containers/nodocker
     files_to_check_c10s:
       - /etc/containers/nodocker
-    files_to_check_gpu_fedora:
-      - /etc/containers/nodocker
-      - /usr/sbin/lspci
     output_check_gpu_fedora_nvidia:
-      - { command: 'lspci -mm', device_name: 'GK210GL [Tesla K80]', vendor_name: 'NVIDIA' }
+      - { command: 'lspci -mm', vendor_name: 'NVIDIA' }
 
   tasks:
     - debug: msg="{{ os_test }}"
