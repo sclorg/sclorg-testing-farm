@@ -13,40 +13,42 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["fedora", "gpu-fedora", "c9s", "c10s"]
         include:
           - os: "fedora"
             context: "Fedora"
             compose: "Fedora-41"
             tmt_hardware: ""
+            hardware: ""
           - os: "gpu-fedora"
-            context: "Fedora with GPU Tesla K80"
+            context: "Fedora with GPU GK210 (Tesla K80)"
             compose: "Fedora-41"
             tmt_hardware: '{"gpu": {"device-name": "GK210 (Tesla K80)", "vendor-name": "NVIDIA"}}'
-            hardware: "GK210 (Tesla K80)"
+            hardware: "GK210"
           - os: "gpu-fedora"
-            context: "Fedora with GPU Tesla V100"
+            context: "Fedora with GPU GV100 (Tesla V100)"
             compose: "Fedora-41"
-            tmt_hardware: '{"gpu": {"device-name": "GV100 (Tesla V100)", "vendor-name": "NVIDIA"}}'
-            hardware: "GV100 (Tesla V100)"
+            tmt_hardware: '{"gpu": {"device-name": "", "vendor-name": "NVIDIA"}}'
+            hardware: "GV100"
           - os: "gpu-fedora"
-            context: "Fedora with GPU A100"
+            context: "Fedora with GPU GA100 (A100)"
             compose: "Fedora-41"
             tmt_hardware: '{"gpu": {"device-name": "GA100 (A100)", "vendor-name": "NVIDIA"}}'
-            hardware: "GA100 (A100)"
+            hardware: "GA100"
           - os: "gpu-fedora"
-            context: "Fedora with GPU H100"
+            context: "Fedora with GPU GH100 (H100)"
             compose: "Fedora-41"
             tmt_hardware: '{"gpu": {"device-name": "GH100 (H100)", "vendor-name": "NVIDIA"}}'
-            hardware: "GH100 (H100)"
+            hardware: "GH100"
           - os: "c9s"
             context: "CentOS Stream 9"
             compose: "CentOS-Stream-9"
             tmt_hardware: ""
+            hardware: ""
           - os: "c10s"
             context: "CentOS Stream 10"
             compose: "CentOS-Stream-10"
             tmt_hardware: ""
+            hardware: ""
 
     if: |
       github.event.issue.pull_request
