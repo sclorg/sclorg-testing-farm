@@ -23,22 +23,22 @@ jobs:
             context: "Fedora with GPU GK210 (Tesla K80)"
             compose: "Fedora-41"
             tmt_hardware: '{"gpu": {"device-name": "GK210 (Tesla K80)", "vendor-name": "NVIDIA"}}'
-            hardware: ";GPU=GK210"
+            hardware: "GK210"
           - os: "gpu-fedora"
             context: "Fedora with GPU GV100 (Tesla V100)"
             compose: "Fedora-41"
             tmt_hardware: '{"gpu": {"device-name": "GV100 (Tesla V100)", "vendor-name": "NVIDIA"}}'
-            hardware: ";GPU=GV100"
+            hardware: "GV100"
           - os: "gpu-fedora"
             context: "Fedora with GPU GA100 (A100)"
             compose: "Fedora-41"
             tmt_hardware: '{"gpu": {"device-name": "GA100 (A100)", "vendor-name": "NVIDIA"}}'
-            hardware: ";GPU=GA100"
+            hardware: "GA100"
           - os: "gpu-fedora"
             context: "Fedora with GPU GH100 (H100)"
             compose: "Fedora-41"
             tmt_hardware: '{"gpu": {"device-name": "GH100 (H100)", "vendor-name": "NVIDIA"}}'
-            hardware: ";GPU=GH100"
+            hardware: "GH100"
           - os: "c9s"
             context: "CentOS Stream 9"
             compose: "CentOS-Stream-9"
