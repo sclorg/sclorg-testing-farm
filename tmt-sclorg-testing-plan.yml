@@ -36,7 +36,7 @@
     files_to_check_c10s:
       - /etc/containers/nodocker
     output_check_gpu_fedora_nvidia:
-      - { command: 'lspci -mm', vendor_name: 'NVIDIA' }
+      - { command: 'lspci -mm', device_name: '{{ gpu }}', vendor_name: 'NVIDIA' }
 
   tasks:
     - debug: msg="{{ os_test }}"
@@ -75,7 +75,7 @@
 
         - name: Check if file {{ item }} exists
           include_tasks: ./tasks/check_file_presents.yml
-          loop: "{{ files_to_check_gpu_fedora }}"
+          loop: "{{ files_to_check_fedora }}"
 
         - name: Check if output {{ item }} exists
           include_tasks: ./tasks/check_output_command.yml
