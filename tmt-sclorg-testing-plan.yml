@@ -10,15 +10,16 @@
     package_names_all:
       - git
       - make
-      - ansible
       - podman-docker
       - podman
     package_names_c9s:
       - golang-github-cpuguy83-md2man
       - s-nail
+      - ansible
     package_names_c10s:
       - golang-github-cpuguy83-md2man
       - s-nail
+      - ansible-core
     package_names_fedora:
       - acl
       - libseccomp-devel
@@ -26,9 +27,11 @@
       - python3-pip
       - golang-github-cpuguy83-md2man
       - s-nail
+      - ansible
     package_names_gpu_fedora:
       - pciutils
       - hwdata
+      - ansible
     files_to_check_fedora:
       - /etc/containers/nodocker
     files_to_check_c9s:
