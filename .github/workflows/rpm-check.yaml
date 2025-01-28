@@ -39,12 +39,12 @@ jobs:
             compose: "Fedora-41"
             tmt_hardware: '{"gpu": {"device-name": "GH100 (H100)", "vendor-name": "NVIDIA"}}'
             hardware: "GH100"
-          - os: "c9s"
+          - os: "centos-stream-9-plan"
             context: "CentOS Stream 9"
             compose: "CentOS-Stream-9"
             tmt_hardware: ""
             hardware: ""
-          - os: "c10s"
+          - os: "centos-stream-10-plan"
             context: "CentOS Stream 10"
             compose: "CentOS-Stream-10"
             tmt_hardware: ""
@@ -69,7 +69,6 @@ jobs:
           git_url: "https://github.com/sclorg/sclorg-testing-farm"
           git_ref: "main"
           tf_scope: "public"
-          tmt_context: "trigger=code"
           tmt_plan_regex: "${{ matrix.os }}"
           tmt_hardware: "${{ matrix.tmt_hardware }}"
           update_pull_request_status: true
