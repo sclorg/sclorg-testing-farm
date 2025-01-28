@@ -21,11 +21,11 @@ prepare:
         git checkout origin/pr/$PR_NUMBER/head
         git submodule update --init
 
-  - name: Enable repositories and prepare machine for tests
-    how: ansible
-    playbook:
-      - tmt-testing-plan-c9s.yml
-    extra-vars: -vv
+    - name: Enable repositories and prepare machine for tests
+      how: ansible
+      playbook:
+        - tmt-testing-plan-c9s.yml
+      extra-vars: -vv
 
 execute:
     how: tmt
