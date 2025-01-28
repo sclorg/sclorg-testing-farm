@@ -5,10 +5,10 @@ description: |
 discover:
     how: shell
     tests:
-    - name: '$OS, container: $REPO_NAME, version: $SINGLE_VERSION'
+    - name: Run sclorg-testing-farm tests
       framework: shell
-      test: cd /root/$REPO_NAME && make $TEST_NAME TARGET=$OS SINGLE_VERSION=$SINGLE_VERSION
-      duration: 3h
+      test: cd /root/$REPO_NAME && git status && OS="$OS" ansible-playbook tmt-sclorg-testing-plan.yml
+      duration: 1h
 
 prepare:
     - name: Clone repository and switch to corresponding PR
@@ -22,10 +22,11 @@ prepare:
         git submodule update --init
 
     - name: Enable repositories and prepare machine for tests
-      how: ansible
-      playbook:
-        - tmt-testing-plan-c10s.yml
-      extra-vars: -vv
+      how: shell
+      script: |
+        cd /root/$REPO_NAME
+        git status
+        ansible-playbook --connection=local --inventory=127.0.0.1, --limit=127.0.0.1 tmt-testing-plan-c10s.yml -vvv
 
 execute:
     how: tmt
