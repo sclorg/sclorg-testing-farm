@@ -28,6 +28,8 @@
       - golang-github-cpuguy83-md2man
       - s-nail
       - ansible
+    package_names_image_mode_c9s:
+      - podman-bootc
     package_names_gpu_fedora:
       - pciutils
       - hwdata
@@ -51,6 +53,15 @@
           include_tasks: ./tasks/check_file_presents.yml
           loop: "{{ files_to_check_c9s }}"
       when: (os_test is defined) and (os_test == "c9s")
+
+    - block:
+        - name: Check if listed package is installed on Image mode CentOS Stream 9
+          include_tasks: ./tasks/check_rpm_presents.yml
+          loop: "{{ package_names_all + package_names_image_mode_c9s }}"
+        - name: Check if files are present on CentOS Stream 9
+          include_tasks: ./tasks/check_file_presents.yml
+          loop: "{{ files_to_check_c9s }}"
+      when: (os_test is defined) and (os_test == "image-mode-c9s")
 
     - block:
         - name: Check if listed package is installed on CentOS Stream 10

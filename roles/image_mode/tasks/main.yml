@@ -1,0 +1,33 @@
+---
+- name: Install basic tools
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - git
+    - make
+- name: Install CentOS Stream 9 packages
+  package:
+    name: "{{ item }}"
+    state: latest
+    validate_certs: no
+    disable_gpg_check: true
+  with_items:
+    - podman
+    - podman-docker
+  when: releasever == 9
+
+#- name: Create dir /etc/containers
+#  file:
+#    path: /etc/containers
+#    state: directory
+#    owner: root
+#    group: root
+#  when: releasever > 7
+#
+#- name: ensure file /etc/containers/nodocker exists
+#  file:
+#    path: /etc/containers/nodocker
+#    state: touch
+#    mode: 0644
+#  when: releasever > 7
