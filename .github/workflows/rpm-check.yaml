@@ -44,7 +44,7 @@ jobs:
             compose: "CentOS-Stream-9"
             tmt_hardware: ""
             hardware: ""
-          - os: "image-mode-c9s-plan"
+          - os: "image-mode-stream-9-plan"
             context: "CentOS Stream 9 Image Mode"
             compose: "CentOS-Stream-9-image-mode"
             tmt_hardware: ""
