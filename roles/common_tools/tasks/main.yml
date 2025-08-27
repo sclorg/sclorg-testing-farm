@@ -18,7 +18,9 @@
   with_items:
     - golang-github-cpuguy83-md2man
     - openssl
-    - python3.12-pip
+    - python3.12
+    - python3-pytest
+    - python3-pip
     - s-nail
     - podman
     - podman-docker
@@ -36,7 +38,9 @@
     - s-nail
     - podman
     - podman-docker
-    - python3.12-pip
+    - python3.12
+    - python3-pytest
+    - python3-pip
   when: releasever == 9
 
 - name: Install CentOS Stream 10 packages
@@ -50,7 +54,9 @@
     - s-nail
     - podman
     - podman-docker
-    - python3.12-pip
+    - python3.12
+    - python3-pytest
+    - python3-pip
   when: releasever == 10
 
 - name: Create dir /etc/containers
