@@ -76,6 +76,7 @@ jobs:
           tf_scope: "public"
           tmt_plan_regex: "${{ matrix.os }}"
           tmt_hardware: "${{ matrix.tmt_hardware }}"
+          tmt_context: "trigger=code"          
           update_pull_request_status: true
           create_issue_comment: true          
           pull_request_status_name: "RPM check for presence in ${{ matrix.context }}"
