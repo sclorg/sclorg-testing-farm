@@ -1,1 +1,2 @@
 releasever: 10
+epel_repo:  https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm

@@ -9,6 +9,7 @@
     - libseccomp-devel
     - postfix
     - acl
+    - fpaste
 
 - name: Install Fedora packages
   package:
@@ -17,25 +18,12 @@
   with_items:
     - golang-github-cpuguy83-md2man
     - openssl
-    - python-pip
+    - python3.12-pip
     - s-nail
     - podman
     - podman-docker
     - pciutils
   when: releasever > 30
-
-- name: Install CentOS Stream 8 packages
-  package:
-    name: "{{ item }}"
-    state: latest
-    validate_certs: no
-    disable_gpg_check: true
-  with_items:
-    - https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/g/golang-github-cpuguy83-md2man-2.0.0-4.20210612gitaf8da76.el8.x86_64.rpm
-    - mailx
-    - podman
-    - podman-docker
-  when: releasever == 8
 
 - name: Install CentOS Stream 9 packages
   package:
@@ -48,6 +36,7 @@
     - s-nail
     - podman
     - podman-docker
+    - python3.12-pip
   when: releasever == 9
 
 - name: Install CentOS Stream 10 packages
@@ -61,8 +50,8 @@
     - s-nail
     - podman
     - podman-docker
+    - python3.12-pip
   when: releasever == 10
-
 
 - name: Create dir /etc/containers
   file:
