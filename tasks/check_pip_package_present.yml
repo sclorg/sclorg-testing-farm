@@ -1,7 +1,19 @@
-- name: Check if pip package is present {{ item }} exists
-  command: pip3 list | grep "{{ item }}"
-  register: pip_result
-- debug: var=pip_result
-- name: Fail if pip is not present
-  fail: msg="This host {{ os_test }} does not contain pip package {{ item }}"
-  when: pip_result.rc != 0
+- block:
+  - name: Check if pip package is present {{ item }} exists
+    command: pip3.12 list | grep "{{ item }}"
+    register: pip_result
+  - debug: var=pip_result
+  - name: Fail if pip is not present
+    fail: msg="This host {{ os_test }} does not contain pip package {{ item }}"
+    when: pip_result.rc != 0
+  when: (os_test is defined) and (os_test == "centos-stream-9-plan")
+
+- block:
+  - name: Check if pip package is present {{ item }} exists
+    command: pip3 list | grep "{{ item }}"
+    register: pip_result
+  - debug: var=pip_result
+  - name: Fail if pip is not present
+    fail: msg="This host {{ os_test }} does not contain pip package {{ item }}"
+    when: pip_result.rc != 0
+  when: (os_test is defined) and (os_test != "centos-stream-9-plan")
