@@ -10,7 +10,8 @@
     - postfix
     - acl
     - fpaste
-
+    - gcc-c++
+    - python3
 - name: Install Fedora packages
   package:
     name: "{{ item }}"
@@ -18,7 +19,6 @@
   with_items:
     - golang-github-cpuguy83-md2man
     - openssl
-    - python3.12
     - python3-pytest
     - python3-pip
     - s-nail
@@ -38,7 +38,6 @@
     - s-nail
     - podman
     - podman-docker
-    - python3.12
     - python3-pytest
     - python3-pip
   when: releasever == 9
@@ -54,7 +53,6 @@
     - s-nail
     - podman
     - podman-docker
-    - python3.12
     - python3-pytest
     - python3-pip
   when: releasever == 10
@@ -73,3 +71,8 @@
     state: touch
     mode: 0644
   when: releasever > 7
+
+- name: Install container-ci-suite for tests
+  pip:
+    name: git+https://github.com/sclorg/container-ci-suite
+    executable: pip3

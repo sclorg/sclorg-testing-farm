@@ -13,18 +13,17 @@
       - podman-docker
       - podman
       - fpaste
+      - python3
     package_names_c9s:
       - golang-github-cpuguy83-md2man
       - s-nail
       - ansible
-      - python3.12
       - python3-pytest
       - python3-pip
     package_names_c10s:
       - golang-github-cpuguy83-md2man
       - s-nail
       - ansible-core
-      - python3.12
       - python3-pytest
       - python3-pip
     package_names_fedora:
@@ -34,7 +33,6 @@
       - golang-github-cpuguy83-md2man
       - s-nail
       - ansible
-      - python3.12
       - python3-pytest
       - python3-pip
     package_names_image_mode_c9s:
@@ -51,6 +49,8 @@
       - /etc/containers/nodocker
     output_check_gpu_fedora_nvidia:
       - { command: 'lspci -mm', device_name: '{{ gpu }}', vendor_name: 'NVIDIA' }
+    pip_check_install:
+      - container-ci-suite
 
   tasks:
     - debug: msg="{{ os_test }}"
@@ -61,6 +61,9 @@
         - name: Check if files are present on CentOS Stream 9
           include_tasks: ./tasks/check_file_presents.yml
           loop: "{{ files_to_check_c9s }}"
+        - name: Check if pip package is present on C9S
+          include_tasks: ./tasks/check_pip_package_present.yml
+          loop: "{{ pip_check_install }}"
       when: (os_test is defined) and (os_test == "c9s")
 
     - block:
@@ -79,6 +82,10 @@
         - name: Check if files are present on CentOS Stream 10
           include_tasks: ./tasks/check_file_presents.yml
           loop: "{{ files_to_check_c10s }}"
+        - name: Check if pip package is present on C10S
+          include_tasks: ./tasks/check_pip_package_present.yml
+          loop: "{{ pip_check_install }}"
+
       when: (os_test is defined) and (os_test == "c10s")
 
     - block:
@@ -89,6 +96,10 @@
         - name: Check if file {{ item }} exists
           include_tasks: ./tasks/check_file_presents.yml
           loop: "{{ files_to_check_fedora }}"
+        - name: Check if pip package is present on Fedora
+          include_tasks: ./tasks/check_pip_package_present.yml
+          loop: "{{ pip_check_install }}"
+
       when: (os_test is defined) and (os_test == "fedora")
 
     - block:
