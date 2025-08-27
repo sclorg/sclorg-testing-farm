@@ -1,4 +1,8 @@
 ---
+- name: Enable CentOS-Stream-CRB
+  action: shell dnf config-manager --set-enabled crb
+  when: releasever == 9 or releasever == 10
+
 - name: Install basic tools
   package:
     name: "{{ item }}"
@@ -10,6 +14,7 @@
     - postfix
     - acl
     - fpaste
+    - gcc-c++
 
 - name: Install Fedora packages
   package:
@@ -18,13 +23,13 @@
   with_items:
     - golang-github-cpuguy83-md2man
     - openssl
-    - python3.12
-    - python3-pytest
-    - python3-pip
     - s-nail
     - podman
     - podman-docker
     - pciutils
+    - python3
+    - python3-pytest
+    - python3-pip
   when: releasever > 30
 
 - name: Install CentOS Stream 9 packages
@@ -39,8 +44,8 @@
     - podman
     - podman-docker
     - python3.12
-    - python3-pytest
-    - python3-pip
+    - python3.12-pytest
+    - python3.12-pip
   when: releasever == 9
 
 - name: Install CentOS Stream 10 packages
@@ -55,8 +60,8 @@
     - podman
     - podman-docker
     - python3.12
-    - python3-pytest
-    - python3-pip
+    - python3.12-pytest
+    - python3.12-pip
   when: releasever == 10
 
 - name: Create dir /etc/containers
@@ -73,3 +78,15 @@
     state: touch
     mode: 0644
   when: releasever > 7
+
+- name: Install container-ci-suite for tests
+  pip:
+    name: git+https://github.com/sclorg/container-ci-suite
+    executable: pip3.12
+  when: releasever == 9 or releasever == 10
+
+- name: Install container-ci-suite for tests
+  pip:
+    name: git+https://github.com/sclorg/container-ci-suite
+    executable: pip3
+  when: releasever > 30
