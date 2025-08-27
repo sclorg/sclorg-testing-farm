@@ -12,22 +12,31 @@
       - make
       - podman-docker
       - podman
+      - fpaste
     package_names_c9s:
       - golang-github-cpuguy83-md2man
       - s-nail
       - ansible
+      - python3.12
+      - python3-pytest
+      - python3-pip
     package_names_c10s:
       - golang-github-cpuguy83-md2man
       - s-nail
       - ansible-core
+      - python3.12
+      - python3-pytest
+      - python3-pip
     package_names_fedora:
       - acl
       - libseccomp-devel
       - openssl
-      - python3-pip
       - golang-github-cpuguy83-md2man
       - s-nail
       - ansible
+      - python3.12
+      - python3-pytest
+      - python3-pip
     package_names_image_mode_c9s:
       - podman-bootc
     package_names_gpu_fedora:
