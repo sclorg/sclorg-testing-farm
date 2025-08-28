@@ -13,7 +13,6 @@
     - libseccomp-devel
     - postfix
     - acl
-    - fpaste
     - gcc-c++
 
 - name: Install Fedora packages
