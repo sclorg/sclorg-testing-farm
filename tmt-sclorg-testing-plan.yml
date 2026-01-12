@@ -12,6 +12,7 @@
       - make
       - podman-docker
       - podman
+      - jq
     package_names_c9s:
       - golang-github-cpuguy83-md2man
       - s-nail
