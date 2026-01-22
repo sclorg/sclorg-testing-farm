@@ -16,7 +16,7 @@ jobs:
         include:
           - os: "fedora"
             context: "Fedora"
-            compose: "Fedora-43"
+            compose: "Fedora-42"
             tmt_hardware: ""
             hardware: ""
           - os: "centos-stream-9-plan"
