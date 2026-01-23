@@ -34,9 +34,9 @@
       - golang-github-cpuguy83-md2man
       - s-nail
       - ansible
-      - python3.12
-      - python3.12-pytest
-      - python3.12-pip
+      - python3
+      - python3-pytest
+      - python3-pip
     package_names_image_mode_c9s:
       - podman-bootc
     package_names_gpu_fedora:
