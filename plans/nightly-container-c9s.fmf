@@ -7,7 +7,7 @@ discover:
     tests:
     - name: Run nightly tests
       framework: shell
-      test: cd /root/ci-scripts && ./daily_tests/daily_scl_tests.sh $OS $TEST_NAME
+      test: cd /root/ci-scripts && ./daily_tests/daily_scl_tests.sh $OS $TEST
       duration: 7h
 
 prepare:
