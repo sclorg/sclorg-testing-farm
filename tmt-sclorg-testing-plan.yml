@@ -14,14 +14,12 @@
       - podman
       - jq
     package_names_c9s:
-      - golang-github-cpuguy83-md2man
       - s-nail
       - ansible
       - python3.12
       - python3.12-pytest
       - python3.12-pip
     package_names_c10s:
-      - golang-github-cpuguy83-md2man
       - s-nail
       - ansible-core
       - python3
@@ -31,7 +29,6 @@
       - acl
       - libseccomp-devel
       - openssl
-      - golang-github-cpuguy83-md2man
       - s-nail
       - ansible
       - python3
