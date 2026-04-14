@@ -48,6 +48,7 @@ execute:
       - name: Enable repositories and prepare machine for tests
         how: shell
         script: |
+          export TEST_NAME=test
           cd /root/$REPO_NAME
           git status
           ansible-playbook --connection=local --inventory=127.0.0.1, --limit=127.0.0.1 tmt-testing-plan-fedora.yml -vvv
@@ -56,5 +57,5 @@ execute:
         tests:
         - name: 'Tests for OS: $OS, repo: $REPO_NAME'
           framework: shell
-          test: cd /root/$REPO_NAME && git status && OS="$OS" ansible-playbook tmt-sclorg-testing-plan.yml
+          test: cd /root/$REPO_NAME && git status && TEST_NAME=test OS="$OS" ansible-playbook tmt-sclorg-testing-plan.yml
           duration: 1h
