@@ -23,10 +23,14 @@ jobs:
           - os: "centos-stream-10-plan"
             context: "CentOS Stream 10"
             compose: "CentOS-Stream-10"
+          # As CentOS Stream 11 is not released yet, we will use compose of CentOS Stream 10 for testing on CentOS Stream 11
+          - os: "centos-stream-11-plan"
+            context: "CentOS Stream 11"
+            compose: "CentOS-Stream-10"
 
     if: |
       github.event.issue.pull_request
-      && (contains(github.event.comment.body, '[test]') || contains(github.event.comment.body, '[test-all]'))
+      && contains(github.event.comment.body, '[test]')
       && contains(fromJson('["OWNER", "MEMBER"]'), github.event.comment.author_association)
 
     steps:
