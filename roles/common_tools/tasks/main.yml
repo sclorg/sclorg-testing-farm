@@ -1,7 +1,7 @@
 ---
 - name: Enable CentOS-Stream-CRB
   action: shell dnf config-manager --set-enabled crb
-  when: releasever == 9 or releasever == 10 or releasever == 11
+  when: releasever == 9 or releasever == 10
 
 - name: Install basic tools
   package:
@@ -46,7 +46,7 @@
     - python3.12-pip
   when: releasever == 9
 
-- name: Install CentOS Stream 10 and CentOS Stream 11 packages
+- name: Install CentOS Stream 10 packages
   package:
     name: "{{ item }}"
     state: latest
@@ -59,7 +59,7 @@
     - python3.12
     - python3.12-pytest
     - python3.12-pip
-  when: releasever == 10 or releasever == 11
+  when: releasever == 10
 
 - name: Create dir /etc/containers
   file:
@@ -80,7 +80,7 @@
   pip:
     name: git+https://github.com/sclorg/container-ci-suite
     executable: pip3.12
-  when: releasever == 9 or releasever == 10 or releasever == 11
+  when: releasever == 9 or releasever == 10
 
 - name: Install container-ci-suite for tests
   pip:
