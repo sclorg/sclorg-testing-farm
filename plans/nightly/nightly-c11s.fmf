@@ -1,0 +1,20 @@
+summary: TMT/TFT plan for running container nightly tests
+description: |
+    Run nightly container tests on CentOS Stream 11
+
+discover:
+    how: shell
+    tests:
+    - name: Run nightly tests
+      framework: shell
+      test: cd /root/ci-scripts && ./daily-tests/daily_tests/daily_scl_tests.sh $OS $TEST
+      duration: 7h
+
+prepare:
+    - name: Enable repositories and prepare machine for tests
+      how: ansible
+      playbook:
+        - tmt-testing-plan-c11s.yml
+
+execute:
+    how: tmt
