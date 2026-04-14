@@ -1,0 +1,31 @@
+summary: TMT/TFT plan for running container tests on CentOS Stream 11
+description: |
+    Run container tests on CentOS Stream 11
+
+discover:
+    how: shell
+    tests:
+    - name: '$OS, container: $REPO_NAME, version: $SINGLE_VERSION'
+      framework: shell
+      test: cd /root/$REPO_NAME && make $TEST_NAME TARGET=$OS SINGLE_VERSION=$SINGLE_VERSION
+      duration: 3h
+
+prepare:
+    - name: Clone repository and switch to corresponding PR
+      how: shell
+      script: |
+        dnf install -y git ansible-core
+        git clone $REPO_URL /root/$REPO_NAME
+        cd /root/$REPO_NAME
+        git fetch origin +refs/pull/*:refs/remotes/origin/pr/*
+        git checkout origin/pr/$PR_NUMBER/head
+        git submodule update --init
+
+    - name: Enable repositories and prepare machine for tests
+      how: ansible
+      playbook:
+        - tmt-testing-plan-c11s.yml
+      extra-vars: -vv
+
+execute:
+    how: tmt
